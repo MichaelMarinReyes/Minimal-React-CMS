@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.VentanaPrincipalController"
+            prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu id="archivoBoton" mnemonicParsing="false" text="Archivo">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Abrir" />
+                        <MenuItem mnemonicParsing="false" text="Guardar" />
+                    </items>
+                </Menu>
+                <Menu id="editorBoton" mnemonicParsing="false" text="Editor">
+                    <items>
+                        <MenuItem fx:id="abrirEditorMenuItem" mnemonicParsing="false" text="Abrir" />
+                    </items>
+                </Menu>
+
+                <Menu id="visualizadorBoton" mnemonicParsing="false" text="Visualizador">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Abrir archivo TOML" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <Pane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
+    </center>
+</BorderPane>

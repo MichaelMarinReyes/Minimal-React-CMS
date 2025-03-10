@@ -11,6 +11,8 @@ module proyecto1.editor {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens proyecto1.editor to javafx.fxml;
-    exports proyecto1.editor;
+    opens principal to javafx.fxml;
+    exports principal;
+    exports controllers;
+    opens controllers to javafx.fxml;
 }
