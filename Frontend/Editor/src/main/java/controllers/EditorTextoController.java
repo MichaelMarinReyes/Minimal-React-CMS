@@ -12,38 +12,42 @@ public class EditorTextoController {
     @FXML
     private Label columnaLabel;
     @FXML
-    private ListView<Integer> lineNumbers;
+    private ListView<String> numeroLinea;
 
     @FXML
     public void initialize() {
-        textArea.setOnKeyReleased(this::actualizarPosicionCursor);
-        actualizarNumerosDeLinea();
-        textArea.textProperty().addListener((obs, oldText, newText) -> actualizarNumerosDeLinea());
+        textArea.setOnKeyReleased(this::actualizarNumeroColumna);
+        actualizarNumeroLinea();
+        textArea.textProperty().addListener((obs, oldText, newText) -> actualizarNumeroLinea());
 
+        textArea.setStyle("-fx-font-size: 14px;");
+        numeroLinea.setStyle("-fx-font-size: 12px;");
+        numeroLinea.setFixedCellSize(18);
+        numeroLinea.getStylesheets().add(getClass().getResource("/styles/editor-texto-style.css").toExternalForm());
         Platform.runLater(() -> {
             sincronizarScroll();
             ocultarScrollBar();
         });
     }
 
-    private void actualizarPosicionCursor(KeyEvent event) {
-        int caretPosition = textArea.getCaretPosition();
-        int lastNewLine = textArea.getText().lastIndexOf("\n", caretPosition - 1);
-        int columna = (lastNewLine == -1) ? caretPosition : caretPosition - lastNewLine - 1;
-        columnaLabel.setText(String.valueOf(columna));
+    private void actualizarNumeroColumna(KeyEvent event) {
+        int posicionColumna = textArea.getCaretPosition();
+        int ultimaLinea = textArea.getText().lastIndexOf("\n", posicionColumna - 1);
+        int columna = (ultimaLinea == -1) ? posicionColumna : posicionColumna - ultimaLinea - 1;
+        columnaLabel.setText(String.valueOf(columna + 1));
     }
 
-    private void actualizarNumerosDeLinea() {
+    private void actualizarNumeroLinea() {
         String[] lineas = textArea.getText().split("\n", -1);
-        lineNumbers.getItems().clear();
+        numeroLinea.getItems().clear();
         for (int i = 1; i <= lineas.length; i++) {
-            lineNumbers.getItems().add(i);
+            numeroLinea.getItems().add(String.valueOf(i));
         }
     }
 
     private void sincronizarScroll() {
         ScrollBar textAreaScrollBar = getVerticalScrollBar(textArea);
-        ScrollBar listViewScrollBar = getVerticalScrollBar(lineNumbers);
+        ScrollBar listViewScrollBar = getVerticalScrollBar(numeroLinea);
 
         if (textAreaScrollBar != null && listViewScrollBar != null) {
             listViewScrollBar.valueProperty().bindBidirectional(textAreaScrollBar.valueProperty());
@@ -51,7 +55,7 @@ public class EditorTextoController {
     }
 
     private void ocultarScrollBar() {
-        ScrollBar scrollBar = getVerticalScrollBar(lineNumbers);
+        ScrollBar scrollBar = getVerticalScrollBar(numeroLinea);
         if (scrollBar != null) {
             scrollBar.setVisible(false);
             scrollBar.setManaged(false); // Evita que JavaFX reserve espacio para el scroll
