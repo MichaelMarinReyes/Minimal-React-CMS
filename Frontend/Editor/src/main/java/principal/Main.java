@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
         Rectangle2D tamañoPantalla = Screen.getPrimary().getVisualBounds();

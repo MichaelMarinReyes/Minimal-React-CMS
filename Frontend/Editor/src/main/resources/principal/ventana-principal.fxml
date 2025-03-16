@@ -12,7 +12,7 @@
             <menus>
                 <Menu id="archivoBoton" mnemonicParsing="false" text="Archivo">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Abrir" />
+                        <MenuItem fx:id="abrirChooserMenuItem" mnemonicParsing="false" text="Abrir" />
                         <MenuItem mnemonicParsing="false" text="Guardar" />
                     </items>
                 </Menu>
@@ -27,10 +27,14 @@
                         <MenuItem mnemonicParsing="false" text="Abrir archivo TOML" />
                     </items>
                 </Menu>
+
+                <Menu id="reportes" mnemonicParsing="false" text="Reportes">
+
+                </Menu>
             </menus>
         </MenuBar>
     </top>
     <center>
-        <Pane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
+        <AnchorPane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
     </center>
 </BorderPane>
