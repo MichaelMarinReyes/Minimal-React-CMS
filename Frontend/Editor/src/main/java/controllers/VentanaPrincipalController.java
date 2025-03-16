@@ -16,7 +16,8 @@ public class VentanaPrincipalController {
     private MenuItem abrirEditorMenuItem;
 
     @FXML
-    public void initialize() {
+    public void initialize () {
+        cargarVista("/principal/editor-texto.fxml");
         abrirEditorMenuItem.setOnAction(event -> cargarEditorTexto());
     }
 
@@ -26,6 +27,16 @@ public class VentanaPrincipalController {
             Node editor = loader.load();
 
             contenedorPrincipal.getChildren().setAll(editor);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void cargarVista(String path) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+            Node vista = loader.load();
+            contenedorPrincipal.getChildren().setAll(vista);
         } catch (IOException e) {
             e.printStackTrace();
         }

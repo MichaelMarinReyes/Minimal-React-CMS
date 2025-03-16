@@ -58,7 +58,7 @@ public class EditorTextoController {
         ScrollBar scrollBar = getVerticalScrollBar(numeroLinea);
         if (scrollBar != null) {
             scrollBar.setVisible(false);
-            scrollBar.setManaged(false); // Evita que JavaFX reserve espacio para el scroll
+            scrollBar.setManaged(false);
         }
     }
 
