@@ -10,6 +10,9 @@ module proyecto1.editor {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires tyrus.standalone.client;
+    requires javax.websocket.api;
+    requires tyrus.client;
 
     opens principal to javafx.fxml;
     exports principal;
