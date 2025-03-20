@@ -13,7 +13,11 @@ import java.util.ArrayList;
 %column
 %cup
 
-id = [a-zZ-Z_][a-zA-Z0-9]*
+DIGITO = [0-9]
+TEXTO = [a-zA-Z]
+NUMERO = [0-9]+|-[0-9]+
+CADENA = \"([a-zA-Z]+|[a-zA-Z0-9]+)\"
+CARACTER = \'([a-z]|[A-Z])\'
 
 %{
     public static ArrayList<ErrorLexico> errores = new ArrayList<>();
@@ -25,16 +29,32 @@ id = [a-zZ-Z_][a-zA-Z0-9]*
 
 %%
 
-"GET"             { return new Symbol(ParserSym.GET, yyline+1, yycolumn+1, yytext()); }
-"POST"            { return new Symbol(ParserSym.POST, yyline+1, yycolumn+1, yytext()); }
-"PATCH"           { return new Symbol(ParserSym.PATCH, yyline+1, yycolumn+1, yytext()); }
-"DELETE"          { return new Symbol(ParserSym.DELETE, yyline+1, yycolumn+1, yytext()); }
-"SITIO"           { return new Symbol(ParserSym.SITIO, yyline+1, yycolumn+1, yytext()); }
-"PAGINA"          { return new Symbol(ParserSym.PAGINA, yyline+1, yycolumn+1, yytext()); }
-"abrir sitio"     { return new Symbol(ParserSym.ABRIR_SITIO, yyline+1, yycolumn+1, yytext()); }
-"crear pagina"    { return new Symbol(ParserSym.CREAR_PAGINA, yyline+1, yycolumn+1, yytext()); }
-id                { return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
-"<main>"([^<]|<[^/]|<\/[^m]|<\/m[^a]|<\/ma[^i]|<\/mai[^n]|<\/main[^>])*"</main>" { return new Symbol(sym.BODY, yyline+1, yycolumn+1, yytext()); }
+"GET"                                  { return new Symbol(ParserSym.GET, yyline+1, yycolumn+1, yytext()); }
+"POST"                                 { return new Symbol(ParserSym.POST, yyline+1, yycolumn+1, yytext()); }
+"PATCH"                                { return new Symbol(ParserSym.PATCH, yyline+1, yycolumn+1, yytext()); }
+"DELETE"                               { return new Symbol(ParserSym.DELETE, yyline+1, yycolumn+1, yytext()); }
+"SUCCESS"                              { return new Symbol(ParserSym.SUCCESS, yyline+1, yycolumn+1, yytext()); }
+"NOT_FOUND"                            { return new Symbol(ParserSym.NOT_FOUND, yyline+1, yycolumn+1, yytext()); }
+"INTERNAL_SERVER_ERROR"                { return new Symbol(ParserSym.INTERNAL_SERVER_ERROR, yyline+1, yycolumn+1, yytext()); }
+"SITIO"                                { return new Symbol(ParserSym.SITIO, yyline+1, yycolumn+1, yytext()); }
+"PAGINA"                               { return new Symbol(ParserSym.PAGINA, yyline+1, yycolumn+1, yytext()); }
+"crear"                                { return new Symbol(ParserSym.CREAR, yyline+1, yycolumn+1, yytext()); }
+"agregar"                              { return new Symbol(ParserSym.AGREGAR, yyline+1, yycolumn+1, yytext()); }
+"eliminar"                             { return new Symbol(ParserSym.ELIMINAR, yyline+1, yycolumn+1, yytext()); }
+"modificar"                            { return new Symbol(ParserSym.MODIFICAR, yyline+1, yycolumn+1, yytext()); }
+"nombre"                               { return new Symbol(ParserSym.NOMBRE, yyline+1, yycolumn+1, yytext()); }
+"path"                                 { return new Symbol(ParserSym.PATH, yyline+1, yycolumn+1, yytext()); }
+"true"                                 { return new Symbol(ParserSym.TRUE, yyline+1, yycolumn+1, yytext()); }
+"false"                                { return new Symbol(ParserSym.FALSE, yyline+1, yycolumn+1, yytext()); }
+"void"                                 { return new Symbol(ParserSym.VOID, yyline+1, yycolumn+1, yytext()); }
+"["                                    { return new Symbol(ParserSym.CORCHETE_ABRE, yyline+1, yycolumn+1, yytext()); }
+"]"                                    { return new Symbol(ParserSym.CORCHETE_CIERRA, yyline+1, yycolumn+1, yytext()); }
+"="                                    { return new Symbol(ParserSym.IGUAL, yyline+1, yycolumn+1, yytext()); }
+NUMERO                                 { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
+CADENA                                 { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
+CARACTER                               { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
+"<" .*? ">"                            { return new Symbol(ParserSym.BODY, yytext()); }
+{TEXTO}({TEXTO}|{DIGITO}|_)*           { return new Symbol(ParserSym.ID, yytext()); }
 [ \t\n\r]+        {}
 "\/\/".*          {}
 "/*"([^*]|"*"[^/])*"*/" { /* Ignorar comentarios multilínea */ }

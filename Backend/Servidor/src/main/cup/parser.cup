@@ -32,20 +32,34 @@ parser code {:
     }
 :}
 
-terminal GET, POST, PATCH, DELETE, SITIO, PAGINA, ABRIR_SITIO, CREAR_PAGINA, ID, BODY;
+terminal ID, BODY, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
+terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID;
+non terminal request, response, sCL_instruction, toml_structure, objetivo, body_opt, codigo, parametros_opt, toml_body, toml_attribute;
 
-non terminal Request, Metodo, Objetivo, Instruccion_sCL, Body;
+precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 
-precedence left GET, POST, PATCH, DELETE;
+request ::= GET objetivo sCL_instruction body_opt
+         | POST objetivo sCL_instruction body_opt
+         | PATCH objetivo sCL_instruction body_opt
+         | DELETE objetivo sCL_instruction body_opt;
 
-start with Request;
+response ::= codigo body_opt ;
 
-Request ::= Metodo Objetivo Instruccion_sCL Body;
+codigo ::= SUCCESS | NOT_FOUND | INTERNAL_SERVER_ERROR ;
 
-Metodo ::= GET | POST | PATCH | DELETE;
+body_opt ::= BODY | /* vacío */ ;
 
-Objetivo ::= SITIO | PAGINA;
+objetivo ::= SITIO | PAGINA ;
 
-Instruccion_sCL ::= ABRIR_SITIO ID | CREAR_PAGINA ID;
+sCL_instruction ::= CREAR objetivo ID parametros_opt
+                  | AGREGAR objetivo ID parametros_opt
+                  | ELIMINAR objetivo ID
+                  | MODIFICAR objetivo ID parametros_opt ;
 
-Body ::= BODY;
+parametros_opt ::= ID parametros_opt | /* vacío */ ;
+
+toml_structure ::= CORCHETE_ABRE ID CORCHETE_CIERRA toml_body ;
+
+toml_body ::= toml_attribute toml_body | /* vacío */ ;
+
+toml_attribute ::= NOMBRE IGUAL ID | PATH IGUAL ID ;
