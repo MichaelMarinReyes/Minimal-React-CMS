@@ -1,0 +1,51 @@
+package analizadores;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+
+class Parser;
+parser code {:
+    private String texto = "";
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void report_error(String message, Object info) {
+        if (info instanceof Symbol) {
+            Symbol s = (Symbol) info;
+            try {
+                throw new Exception("Error sintáctico en la columna " + (s.right) + ": " + message);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            System.err.println("Error sintáctico: " + message);
+        }
+    }
+
+    public void report_fatal_error(String message, Object info) throws Exception {
+        report_error(message, info);
+        Symbol symbol = (Symbol)info;
+        throw new Exception("El texto ingresado es incorrecto, por favor revise la sintaxis y vuelva a intentarlo.");
+
+    }
+:}
+
+terminal GET, POST, PATCH, DELETE, SITIO, PAGINA, ABRIR_SITIO, CREAR_PAGINA, ID, BODY;
+
+non terminal Request, Metodo, Objetivo, Instruccion_sCL, Body;
+
+precedence left GET, POST, PATCH, DELETE;
+
+start with Request;
+
+Request ::= Metodo Objetivo Instruccion_sCL Body;
+
+Metodo ::= GET | POST | PATCH | DELETE;
+
+Objetivo ::= SITIO | PAGINA;
+
+Instruccion_sCL ::= ABRIR_SITIO ID | CREAR_PAGINA ID;
+
+Body ::= BODY;

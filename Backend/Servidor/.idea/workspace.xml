@@ -5,19 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08e4c9bf-d279-498b-bb1a-3c6bd32c992a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/principal/ServidorEndpoint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/cup/parser.cup" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/conexion/Conexion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/jflex/lexer.flex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/proyecto1/WebSocket.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servidor/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servidor/HelloResource.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/beans.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/principal/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/principal/ServidorEndpoint.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/ConexionWebSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/ConexionWebSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/ConexionWebSocket.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" afterDir="false" />
     </list>
@@ -36,9 +35,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2uWWVE3QlZSCTETqEo4CvOHciVL" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -47,21 +46,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="principal.Main" />
@@ -87,7 +86,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1742364834009</updated>
-      <workItem from="1742364835145" duration="3897000" />
+      <workItem from="1742364835145" duration="4381000" />
+      <workItem from="1742440717645" duration="3111000" />
     </task>
     <servers />
   </component>

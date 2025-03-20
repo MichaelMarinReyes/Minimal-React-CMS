@@ -1,6 +1,6 @@
 package principal;
 
-import conexion.ConexionWebSocket;
+import conexion.Cliente;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,15 +11,16 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
         //CONEXIÓN WEBSOCKET
-        ConexionWebSocket.conectarWebSocket();
+        //ConexionWebSocket.conectarWebSocket();
+        Cliente cliente = new Cliente();
+        System.out.println("Iniciando cliente");
+        cliente.iniciarCliente();
         //GUI
         Rectangle2D tamañoPantalla = Screen.getPrimary().getVisualBounds();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ventana-principal.fxml"));
