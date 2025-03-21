@@ -33,33 +33,51 @@ parser code {:
 :}
 
 terminal ID, BODY, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
-terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID;
-non terminal request, response, sCL_instruction, toml_structure, objetivo, body_opt, codigo, parametros_opt, toml_body, toml_attribute;
+terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH;
+non terminal inicial, lenguajesHTTP, metodos, objetivo, request, sCL_instruccion, parametros, body, response, codigo, lenguajeToml, atributo_Toml, path;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 
-request ::= GET objetivo sCL_instruction body_opt
-         | POST objetivo sCL_instruction body_opt
-         | PATCH objetivo sCL_instruction body_opt
-         | DELETE objetivo sCL_instruction body_opt;
+start with inicial;
 
-response ::= codigo body_opt ;
+inicial ::= lenguajesHTTP
+           | lenguajeToml;
 
-codigo ::= SUCCESS | NOT_FOUND | INTERNAL_SERVER_ERROR ;
+//LENGUAJE SHTTP
+lenguajesHTTP ::= metodos objetivo sCL_instruccion body;
 
-body_opt ::= BODY | /* vacío */ ;
+metodos ::= request
+          | response
+          | ;
 
-objetivo ::= SITIO | PAGINA ;
+request ::= GET
+          | POST
+          | PATCH
+          | DELETE;
 
-sCL_instruction ::= CREAR objetivo ID parametros_opt
-                  | AGREGAR objetivo ID parametros_opt
+sCL_instruccion ::= CREAR objetivo ID parametros
+                  | AGREGAR objetivo ID parametros
                   | ELIMINAR objetivo ID
-                  | MODIFICAR objetivo ID parametros_opt ;
+                  | MODIFICAR objetivo ID parametros ;
 
-parametros_opt ::= ID parametros_opt | /* vacío */ ;
+objetivo ::= SITIO
+           | PAGINA;
 
-toml_structure ::= CORCHETE_ABRE ID CORCHETE_CIERRA toml_body ;
+parametros ::= ID parametros;
 
-toml_body ::= toml_attribute toml_body | /* vacío */ ;
+body ::= BODY;
 
-toml_attribute ::= NOMBRE IGUAL ID | PATH IGUAL ID ;
+response ::= codigo body;
+
+
+codigo ::= SUCCESS
+         | NOT_FOUND
+         | INTERNAL_SERVER_ERROR;
+
+//LENGUAJE TOML
+lenguajeToml ::= CORCHETE_ABRE ID CORCHETE_CIERRA atributo_Toml lenguajeToml;
+
+atributo_Toml ::= NOMBRE IGUAL ID
+                | PATH IGUAL ATRIBUTO_PATH;
+
+

@@ -3,7 +3,7 @@ package analizadores;
 import java_cup.runtime.*;
 import analizadores.ErrorLexico;
 import analizadores.Token;
-import java.util.ArrayList;
+import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 
 %%
 %public
@@ -50,9 +50,11 @@ CARACTER = \'([a-z]|[A-Z])\'
 "["                                    { return new Symbol(ParserSym.CORCHETE_ABRE, yyline+1, yycolumn+1, yytext()); }
 "]"                                    { return new Symbol(ParserSym.CORCHETE_CIERRA, yyline+1, yycolumn+1, yytext()); }
 "="                                    { return new Symbol(ParserSym.IGUAL, yyline+1, yycolumn+1, yytext()); }
-NUMERO                                 { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
-CADENA                                 { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
-CARACTER                               { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
+\"({CADENA}\/{CADENA})+                { return new Symbol(ParserSym.ATRIBUTO_PATH, yyline+1, yycolumn+1, yytext()); }
+"#"{CADENA}                            { return new Symbol(ParserSym.COMENTARIO_TOML, yyline+1, yycolumn+1, yytext()); }
+{NUMERO}                               { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
+{CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
+{CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
 "<" .*? ">"                            { return new Symbol(ParserSym.BODY, yytext()); }
 {TEXTO}({TEXTO}|{DIGITO}|_)*           { return new Symbol(ParserSym.ID, yytext()); }
 [ \t\n\r]+        {}

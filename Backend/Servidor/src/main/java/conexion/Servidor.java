@@ -28,5 +28,4 @@ public class Servidor extends Conexion {
             System.out.println("Error de conexión: " + e.getMessage());
         }
     }
-
 }

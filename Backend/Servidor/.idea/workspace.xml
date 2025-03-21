@@ -7,7 +7,11 @@
     <list default="true" id="08e4c9bf-d279-498b-bb1a-3c6bd32c992a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/cup/parser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cup/parser.cup" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/jflex/lexer.flex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/jflex/lexer.flex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +93,8 @@
       <updated>1742364834009</updated>
       <workItem from="1742364835145" duration="4381000" />
       <workItem from="1742440717645" duration="7008000" />
-      <workItem from="1742448987390" duration="1932000" />
+      <workItem from="1742448987390" duration="2086000" />
+      <workItem from="1742527236136" duration="5608000" />
     </task>
     <servers />
   </component>
