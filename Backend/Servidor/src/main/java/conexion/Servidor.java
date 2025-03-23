@@ -15,15 +15,17 @@ public class Servidor extends Conexion {
             System.out.println("Iniciado");
             socket = serverSocket.accept();
             System.out.println("Cliente conectado");
-            salidaCliente = new DataOutputStream(socket.getOutputStream());
-            salidaCliente.writeUTF("Petición recibida");
+
+            enviarAlCliente = new DataOutputStream(socket.getOutputStream());
+            enviarAlCliente.writeUTF("Petición recibida");
             BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            while ((mensajeEntrante = entrada.readLine()) != null) {
-                System.out.println(mensajeEntrante);
+            while ((mensajeDelCliente = entrada.readLine()) != null) {
+                System.out.println(mensajeDelCliente);
+                enviarAlCliente.writeUTF("Mensaje recibido"); //envia al cliente algo
             }
-            System.out.println("Fin servidor");
-            serverSocket.close();
+            /*System.out.println("Fin servidor");
+            serverSocket.close();*/
         } catch (Exception e) {
             System.out.println("Error de conexión: " + e.getMessage());
         }

@@ -9,9 +9,13 @@
       <change beforePath="$PROJECT_DIR$/src/main/cup/parser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cup/parser.cup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Conexion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/principal/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/jflex/lexer.flex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/jflex/lexer.flex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/EditorTextoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/EditorTextoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +98,10 @@
       <workItem from="1742364835145" duration="4381000" />
       <workItem from="1742440717645" duration="7008000" />
       <workItem from="1742448987390" duration="2086000" />
-      <workItem from="1742527236136" duration="5608000" />
+      <workItem from="1742527236136" duration="6853000" />
+      <workItem from="1742536387064" duration="341000" />
+      <workItem from="1742536973792" duration="697000" />
+      <workItem from="1742676445938" duration="7222000" />
     </task>
     <servers />
   </component>

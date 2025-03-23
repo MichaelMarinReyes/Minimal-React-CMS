@@ -8,11 +8,10 @@ import java.net.Socket;
 public class Conexion {
     private final int PUERTO = 8080;
     private final String HOST = "localhost";
-    protected String mensajeEntrante;
+    protected String mensajeDelCliente;
     protected ServerSocket serverSocket;
     protected Socket socket;
-    protected DataOutputStream salidaServidor;
-    protected DataOutputStream salidaCliente;
+    protected DataOutputStream enviarAlCliente;
 
     public Conexion(String tipo) throws IOException {
         if (tipo.equalsIgnoreCase("SERVIDOR")) {

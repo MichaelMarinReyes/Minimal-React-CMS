@@ -1,10 +1,13 @@
 package controllers;
 
+import conexion.Cliente;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+
+import java.io.IOException;
 
 public class EditorTextoController {
     @FXML
@@ -13,6 +16,17 @@ public class EditorTextoController {
     private Label columnaLabel;
     @FXML
     private ListView<String> numeroLinea;
+    private String texto = "";
+    private Cliente cliente;
+
+    public EditorTextoController() {
+        try {
+            cliente = new Cliente();  // Crear la instancia del Cliente
+            cliente.iniciarCliente();  // Iniciar la conexión con el servidor
+        } catch (IOException e) {
+            System.out.println("Error al iniciar cliente: " + e.getMessage());
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -73,4 +87,13 @@ public class EditorTextoController {
         }
         return null;
     }
+
+    @FXML
+    public void obtenerTexto() {
+        texto = textArea.getText();  // Obtener el texto de la TextArea
+        if (cliente != null) {
+            cliente.enviarTextoAlServidor(texto);  // Enviar el texto al servidor
+        }
+    }
+
 }

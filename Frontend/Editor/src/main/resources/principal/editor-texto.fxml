@@ -23,6 +23,7 @@
                 <HBox spacing="10.0" style="-fx-padding: 5;">
                     <Label text="Columna: " />
                     <Label fx:id="columnaLabel" text="1" />
+                    <Button text="Compilar" onAction="#obtenerTexto"/>
                 </HBox>
             </bottom>
         </BorderPane>

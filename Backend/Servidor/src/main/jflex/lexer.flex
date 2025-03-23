@@ -9,6 +9,7 @@ import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 %public
 %class Lexer
 %unicode
+%ignorecase
 %line
 %column
 %cup
@@ -55,7 +56,7 @@ CARACTER = \'([a-z]|[A-Z])\'
 {NUMERO}                               { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
 {CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
 {CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
-"<" .*? ">"                            { return new Symbol(ParserSym.BODY, yytext()); }
+"<" .*? ">"                            { System.out.println("body en lexer: " + yytext());return new Symbol(ParserSym.BODY, yytext()); }
 {TEXTO}({TEXTO}|{DIGITO}|_)*           { return new Symbol(ParserSym.ID, yytext()); }
 [ \t\n\r]+        {}
 "\/\/".*          {}

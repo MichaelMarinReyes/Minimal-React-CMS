@@ -34,50 +34,56 @@ parser code {:
 
 terminal ID, BODY, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
 terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH;
-non terminal inicial, lenguajesHTTP, metodos, objetivo, request, sCL_instruccion, parametros, body, response, codigo, lenguajeToml, atributo_Toml, path;
+non terminal inicial, metodos, objetivo, request, sCL_instruccion, parametros, body, response, codigo, lenguajeToml, atributo_Toml, path, accion, prueba;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 
 start with inicial;
 
-inicial ::= lenguajesHTTP
-           | lenguajeToml;
+prueba ::= body:pr {:texto = "prueba: " + String.valueOf(pr);:}
+            | request:pr {:texto = "prueba: " + String.valueOf(pr);:}
+            | response:pr {:texto = "prueba: " + String.valueOf(pr);:};
+
+inicial ::= request:request                 {: texto = "req: " + String.valueOf(request); :}
+          | response:response               {: texto = "resp: " + String.valueOf(response); :}
+          | lenguajeToml;
 
 //LENGUAJE SHTTP
-lenguajesHTTP ::= metodos objetivo sCL_instruccion body;
+//request ::= metodos:met objetivo:ob sCL_instruccion:scl body:bod {: RESULT = String.valueOf(met + " " + ob + " " + scl + " " + bod); :};
+request ::= metodos:met objetivo:ob sCL_instruccion:scl {: System.out.println("http sin body "  + String.valueOf(met) + " " + String.valueOf(ob) + " " + String.valueOf(scl));RESULT = String.valueOf(met + " " + ob + " " + scl); :};
 
-metodos ::= request
-          | response
-          | ;
+metodos ::= GET:req                          {: RESULT = req; :} //metodos
+          | POST:req                         {: RESULT = req; :}
+          | PATCH:req                        {: RESULT = req; :}
+          | DELETE:req                       {: RESULT = req; :};
+         // | error:er                         {: report_error("Se esperaba alguna de las siguientes request: \"get\" \"post\" \"patch\" \"delete\"", er); :};
 
-request ::= GET
-          | POST
-          | PATCH
-          | DELETE;
+objetivo ::= SITIO:ob                        {: RESULT = ob; :}
+           | PAGINA:ob                       {: RESULT = ob; :};
+           //| error:er                        {: report_error("Se esperaba \"sitio\" o \"pagina\"", er); :};
 
-sCL_instruccion ::= CREAR objetivo ID parametros
-                  | AGREGAR objetivo ID parametros
-                  | ELIMINAR objetivo ID
-                  | MODIFICAR objetivo ID parametros ;
+sCL_instruccion ::= accion:ac objetivo:ob parametros:param {: RESULT = String.valueOf(ac + " " + ob + " " + param); :};
 
-objetivo ::= SITIO
-           | PAGINA;
+accion ::= CREAR:crud                        {: RESULT = crud; :}
+         | AGREGAR:crud                      {: RESULT = crud; :}
+         | ELIMINAR:crud                     {: RESULT = crud; :}
+         | MODIFICAR:crud                    {: RESULT = crud; :}
+         | error:er                          {: report_error("Se esperaba alguna de las siguientes instrucciones: \"crear\" \"agregar\" \"eliminar\" \"modificar\"", er); :};
 
-parametros ::= ID parametros;
+parametros ::= ID:id                         {: RESULT = id;:}
+             | ID:id parametros:param        {: RESULT = String.valueOf(id + " " + param);:};
 
-body ::= BODY;
+body ::= BODY:body {:System.out.println("body: " + String.valueOf(body)); RESULT = body;:};
 
-response ::= codigo body;
+response ::= codigo:response {:System.out.println("response sin body"); RESULT = response; :};// body;
 
 
-codigo ::= SUCCESS
-         | NOT_FOUND
-         | INTERNAL_SERVER_ERROR;
+codigo ::= SUCCESS:cod                       {: System.out.println(String.valueOf(cod));RESULT = cod; :}
+         | NOT_FOUND:cod                     {: System.out.println(String.valueOf(cod));RESULT = cod; :}
+         | INTERNAL_SERVER_ERROR:cod         {: System.out.println(String.valueOf(cod));RESULT = cod; :};
 
 //LENGUAJE TOML
 lenguajeToml ::= CORCHETE_ABRE ID CORCHETE_CIERRA atributo_Toml lenguajeToml;
 
 atributo_Toml ::= NOMBRE IGUAL ID
                 | PATH IGUAL ATRIBUTO_PATH;
-
-
