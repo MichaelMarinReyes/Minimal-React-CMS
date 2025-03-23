@@ -28,10 +28,19 @@ public class VentanaPrincipalController {
 
     @FXML
     public void initialize() {
-        //cargarVista(RutaVista.PESTAÑAS_EDITOR.getPath());
         abrirEditorMenuItem.setOnAction(event -> cargarVista(RutaVista.EDITOR_TEXTO.getPath()));
         abrirChooserMenuItem.setOnAction(event -> abrirChooser());
 
+        //REDIMENSIONAMIENTO DE CONTENEDOR
+        contenedorPrincipal.widthProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
+
+        contenedorPrincipal.heightProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println(newValue);
+        });
+
+        //cargarVista(RutaVista.PESTAÑAS_EDITOR.getPath());
         cargarVista(RutaVista.EDITOR_TEXTO.getPath());
     }
 
@@ -39,6 +48,7 @@ public class VentanaPrincipalController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Node vista = loader.load();
+            contenedorPrincipal.setPrefSize(contenedorPrincipal.getWidth(), contenedorPrincipal.getHeight());
             contenedorPrincipal.getChildren().setAll(vista);
         } catch (IOException e) {
             e.printStackTrace();

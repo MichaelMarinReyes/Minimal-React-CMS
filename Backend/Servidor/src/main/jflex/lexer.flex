@@ -2,7 +2,7 @@ package analizadores;
 
 import java_cup.runtime.*;
 import analizadores.ErrorLexico;
-import analizadores.Token;
+import analizadores.Token;import org.w3c.dom.ls.LSOutput;
 import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 
 %%
@@ -15,10 +15,11 @@ import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 %cup
 
 DIGITO = [0-9]
-TEXTO = [a-zA-Z]
+TEXTO = [a-zA-Z0-9]
 NUMERO = [0-9]+|-[0-9]+
 CADENA = \"([a-zA-Z]+|[a-zA-Z0-9]+)\"
 CARACTER = \'([a-z]|[A-Z])\'
+PATH_TOML = \"([a-zA-Z0-9_]+\/[a-zA-Z0-9_]+\.mtsx)\"
 
 %{
     public static ArrayList<ErrorLexico> errores = new ArrayList<>();
@@ -51,16 +52,17 @@ CARACTER = \'([a-z]|[A-Z])\'
 "["                                    { return new Symbol(ParserSym.CORCHETE_ABRE, yyline+1, yycolumn+1, yytext()); }
 "]"                                    { return new Symbol(ParserSym.CORCHETE_CIERRA, yyline+1, yycolumn+1, yytext()); }
 "="                                    { return new Symbol(ParserSym.IGUAL, yyline+1, yycolumn+1, yytext()); }
-\"({CADENA}\/{CADENA})+                { return new Symbol(ParserSym.ATRIBUTO_PATH, yyline+1, yycolumn+1, yytext()); }
+"."                                    { return new Symbol(ParserSym.PUNTO, yyline+1, yycolumn+1, yytext()); }
+{PATH_TOML}                            { return new Symbol(ParserSym.ATRIBUTO_PATH, yyline+1, yycolumn+1, yytext()); }
 "#"{CADENA}                            { return new Symbol(ParserSym.COMENTARIO_TOML, yyline+1, yycolumn+1, yytext()); }
 {NUMERO}                               { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
 {CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
 {CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
-"<" .*? ">"                            { System.out.println("body en lexer: " + yytext());return new Symbol(ParserSym.BODY, yytext()); }
+"<" .*? ">"                            { return new Symbol(ParserSym.BODY, yytext()); }
 {TEXTO}({TEXTO}|{DIGITO}|_)*           { return new Symbol(ParserSym.ID, yytext()); }
-[ \t\n\r]+        {}
-"\/\/".*          {}
-"/*"([^*]|"*"[^/])*"*/" { /* Ignorar comentarios multilínea */ }
-<<EOF>>           { return new Symbol(ParserSym.EOF); }
-[^]               { errores.add(new ErrorLexico(yytext(), yyline + 1, yycolumn + 1, "Léxico", "Caracter desconocido: " + yytext()));
-          System.err.println("Error léxico: " + yytext() + " linea: " + String.valueOf(yyline + 1) + " columna: " + String.valueOf(yycolumn + 1));}
+[ \t\n\r]+                             {}
+"\/\/".*                               {}
+"/*"([^*]|"*"[^/])*"*/"                { /* Ignorar comentarios multilínea */ }
+<<EOF>>                                { return new Symbol(ParserSym.EOF); }
+[^]                                    { errores.add(new ErrorLexico(yytext(), yyline + 1, yycolumn + 1, "Léxico", "Caracter desconocido: " + yytext()));
+                                         System.err.println("Error léxico: " + yytext() + " linea: " + String.valueOf(yyline + 1) + " columna: " + String.valueOf(yycolumn + 1));}

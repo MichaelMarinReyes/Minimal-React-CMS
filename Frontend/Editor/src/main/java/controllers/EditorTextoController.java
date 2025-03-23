@@ -17,16 +17,6 @@ public class EditorTextoController {
     @FXML
     private ListView<String> numeroLinea;
     private String texto = "";
-    private Cliente cliente;
-
-    public EditorTextoController() {
-        try {
-            cliente = new Cliente();  // Crear la instancia del Cliente
-            cliente.iniciarCliente();  // Iniciar la conexión con el servidor
-        } catch (IOException e) {
-            System.out.println("Error al iniciar cliente: " + e.getMessage());
-        }
-    }
 
     @FXML
     public void initialize() {
@@ -91,9 +81,7 @@ public class EditorTextoController {
     @FXML
     public void obtenerTexto() {
         texto = textArea.getText();  // Obtener el texto de la TextArea
-        if (cliente != null) {
-            cliente.enviarTextoAlServidor(texto);  // Enviar el texto al servidor
-        }
+        System.out.println(texto);
     }
 
 }

@@ -33,12 +33,12 @@ parser code {:
 :}
 
 terminal ID, BODY, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
-terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH;
-non terminal inicial, metodos, objetivo, request, sCL_instruccion, parametros, body, response, codigo, lenguajeToml, atributo_Toml, path, accion, prueba;
+terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH, PUNTO;
+non terminal inicial, metodos, objetivo, request, sCL_instruccion, parametros, body, response, codigo, lenguajeToml, etiquetas, atributos, path, accion, prueba, id_etiqueta;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 
-start with inicial;
+start with lenguajeToml;
 
 prueba ::= body:pr {:texto = "prueba: " + String.valueOf(pr);:}
             | request:pr {:texto = "prueba: " + String.valueOf(pr);:}
@@ -46,7 +46,7 @@ prueba ::= body:pr {:texto = "prueba: " + String.valueOf(pr);:}
 
 inicial ::= request:request                 {: texto = "req: " + String.valueOf(request); :}
           | response:response               {: texto = "resp: " + String.valueOf(response); :}
-          | lenguajeToml;
+          | lenguajeToml:toml               {: texto = "toml: " + String.valueOf(toml); :};
 
 //LENGUAJE SHTTP
 //request ::= metodos:met objetivo:ob sCL_instruccion:scl body:bod {: RESULT = String.valueOf(met + " " + ob + " " + scl + " " + bod); :};
@@ -78,12 +78,19 @@ body ::= BODY:body {:System.out.println("body: " + String.valueOf(body)); RESULT
 response ::= codigo:response {:System.out.println("response sin body"); RESULT = response; :};// body;
 
 
-codigo ::= SUCCESS:cod                       {: System.out.println(String.valueOf(cod));RESULT = cod; :}
-         | NOT_FOUND:cod                     {: System.out.println(String.valueOf(cod));RESULT = cod; :}
-         | INTERNAL_SERVER_ERROR:cod         {: System.out.println(String.valueOf(cod));RESULT = cod; :};
+codigo ::= SUCCESS:cod                       {: RESULT = cod; :}
+         | NOT_FOUND:cod                     {: RESULT = cod; :}
+         | INTERNAL_SERVER_ERROR:cod         {: RESULT = cod; :};
 
 //LENGUAJE TOML
-lenguajeToml ::= CORCHETE_ABRE ID CORCHETE_CIERRA atributo_Toml lenguajeToml;
+lenguajeToml ::= etiquetas:eti atributos:att                            {: RESULT = eti.toString() + " " + att.toString(); :};
 
-atributo_Toml ::= NOMBRE IGUAL ID
-                | PATH IGUAL ATRIBUTO_PATH;
+etiquetas ::= CORCHETE_ABRE:ab ID:id CORCHETE_CIERRA:ci                 {: RESULT = ab.toString() + " " + id.toString() + " " + ci.toString(); :}
+            | CORCHETE_ABRE:ab id_etiqueta:id CORCHETE_CIERRA:ci        {: RESULT = ab.toString() + " " + id.toString() + " " + ci.toString(); :};
+
+id_etiqueta ::= ID:id PUNTO:pt ID:ids                                   {: RESULT = id.toString() + pt.toString() + ids.toString(); :}
+              | ID:id PUNTO:pt id_etiqueta:ids                          {: RESULT = id.toString() + pt.toString() + ids.toString(); :};
+
+atributos ::= NOMBRE:nombre IGUAL:igual CADENA:cadena                   {: RESULT = nombre.toString() + igual.toString() + cadena.toString(); :}
+            | PATH:path IGUAL:igual ATRIBUTO_PATH:id                    {: System.out.println(path.toString() + " " + igual.toString() + " " + id.toString()); RESULT = path.toString() + " " + igual.toString() + " " + id.toString(); :}
+            ;//| PATH:path IGUAL:igual ATRIBUTO_PATH:atrPath;
