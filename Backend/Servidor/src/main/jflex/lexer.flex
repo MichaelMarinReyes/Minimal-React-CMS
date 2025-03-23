@@ -19,7 +19,7 @@ TEXTO = [a-zA-Z0-9]
 NUMERO = [0-9]+|-[0-9]+
 CADENA = \"([a-zA-Z]+|[a-zA-Z0-9]+)\"
 CARACTER = \'([a-z]|[A-Z])\'
-PATH_TOML = \"([a-zA-Z0-9_]+\/[a-zA-Z0-9_]+\.mtsx)\"
+PATH_TOML = \"([a-zA-Z0-9_/]+\.mtsx)\"
 
 %{
     public static ArrayList<ErrorLexico> errores = new ArrayList<>();
