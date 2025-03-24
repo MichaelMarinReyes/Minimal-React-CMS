@@ -15,7 +15,8 @@ import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 %cup
 
 DIGITO = [0-9]
-TEXTO = [a-zA-Z0-9]
+TEXTO = [a-zA-Z0-9 ]+ | [a-zA-Z0-9 ]+
+ID = [a-zA-Z0-9]
 NUMERO = [0-9]+|-[0-9]+
 CADENA = \"([a-zA-Z]+|[a-zA-Z0-9]+)\"
 CARACTER = \'([a-z]|[A-Z])\'
@@ -49,19 +50,35 @@ PATH_TOML = \"([a-zA-Z0-9_/]+\.mtsx)\"
 "true"                                 { return new Symbol(ParserSym.TRUE, yyline+1, yycolumn+1, yytext()); }
 "false"                                { return new Symbol(ParserSym.FALSE, yyline+1, yycolumn+1, yytext()); }
 "void"                                 { return new Symbol(ParserSym.VOID, yyline+1, yycolumn+1, yytext()); }
+"main"                                 { return new Symbol(ParserSym.MAIN, yyline+1, yycolumn+1, yytext()); }
+"h1>"                                  { return new Symbol(ParserSym.H1, yyline+1, yycolumn+1, yytext()); }
+"h2>"                                  { return new Symbol(ParserSym.H2, yyline+1, yycolumn+1, yytext()); }
+"h3>"                                  { return new Symbol(ParserSym.H3, yyline+1, yycolumn+1, yytext()); }
+"h4>"                                  { return new Symbol(ParserSym.H4, yyline+1, yycolumn+1, yytext()); }
+"h5>"                                  { return new Symbol(ParserSym.H5, yyline+1, yycolumn+1, yytext()); }
+"h6>"                                  { return new Symbol(ParserSym.H6, yyline+1, yycolumn+1, yytext()); }
+"input"                                { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
+"value"                                { return new Symbol(ParserSym.VALUE, yyline+1, yycolumn+1, yytext()); }
+"button"                               { return new Symbol(ParserSym.BUTTON, yyline+1, yycolumn+1, yytext()); }
+"onClick"                              { return new Symbol(ParserSym.ONCLICK, yyline+1, yycolumn+1, yytext()); }
 "["                                    { return new Symbol(ParserSym.CORCHETE_ABRE, yyline+1, yycolumn+1, yytext()); }
 "]"                                    { return new Symbol(ParserSym.CORCHETE_CIERRA, yyline+1, yycolumn+1, yytext()); }
+"{"                                    { return new Symbol(ParserSym.LLAVE_ABRE, yyline+1, yycolumn+1, yytext()); }
+"}"                                    { return new Symbol(ParserSym.LLAVE_CIERRA, yyline+1, yycolumn+1, yytext()); }
 "="                                    { return new Symbol(ParserSym.IGUAL, yyline+1, yycolumn+1, yytext()); }
 "."                                    { return new Symbol(ParserSym.PUNTO, yyline+1, yycolumn+1, yytext()); }
+"<"                                    { return new Symbol(ParserSym.MENOR_IZ, yyline+1, yycolumn, yytext()); }
+">"                                    { return new Symbol(ParserSym.MAYOR_DER, yyline+1, yycolumn+1, yytext()); }
+\/                                     { return new Symbol(ParserSym.DIAGONAL, yyline+1, yycolumn+1, yytext()); }
+{TEXTO}                                { return new Symbol(ParserSym.TEXTO, yyline+1, yycolumn+1, yytext()); }
 {PATH_TOML}                            { return new Symbol(ParserSym.ATRIBUTO_PATH, yyline+1, yycolumn+1, yytext()); }
 "#"{CADENA}                            { return new Symbol(ParserSym.COMENTARIO_TOML, yyline+1, yycolumn+1, yytext()); }
 {NUMERO}                               { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
 {CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
 {CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
-"<" .*? ">"                            { return new Symbol(ParserSym.BODY, yytext()); }
-{TEXTO}({TEXTO}|{DIGITO}|_)*           { return new Symbol(ParserSym.ID, yytext()); }
-[ \t\n\r]+                             {}
-"\/\/".*                               {}
+{ID}({ID}|{DIGITO}|_)*                 { System.out.println(yytext());return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
+[ \t\n\r]+                             { /* Ignorar tabulaciones, saltos de línea y retorno */ }
+"\/\/".*                               { /* Ignorar comentarios de una línea */ }
 "/*"([^*]|"*"[^/])*"*/"                { /* Ignorar comentarios multilínea */ }
 <<EOF>>                                { return new Symbol(ParserSym.EOF); }
 [^]                                    { errores.add(new ErrorLexico(yytext(), yyline + 1, yycolumn + 1, "Léxico", "Caracter desconocido: " + yytext()));

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="08e4c9bf-d279-498b-bb1a-3c6bd32c992a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cup/parser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cup/parser.cup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/jflex/lexer.flex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/jflex/lexer.flex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +95,7 @@
       <workItem from="1742536973792" duration="697000" />
       <workItem from="1742676445938" duration="7222000" />
       <workItem from="1742706264066" duration="7111000" />
-      <workItem from="1742754668684" duration="2861000" />
+      <workItem from="1742754668684" duration="15348000" />
     </task>
     <servers />
   </component>
