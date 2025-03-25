@@ -40,7 +40,7 @@ non terminal header, inputs, buttons, tipo_titulo, texto, parrafos;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 
-start with inputs;
+start with prueba;
 
 prueba ::= body_html:pr {:texto = "prueba: " + String.valueOf(pr);:}
             | parrafos:pr {:texto = "prueba: " + String.valueOf(pr);:}

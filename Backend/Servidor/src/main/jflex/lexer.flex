@@ -52,7 +52,7 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 "false"                                { return new Symbol(ParserSym.FALSE, yyline+1, yycolumn+1, yytext()); }
 "void"                                 { return new Symbol(ParserSym.VOID, yyline+1, yycolumn+1, yytext()); }
 "main"                                 { return new Symbol(ParserSym.MAIN, yyline+1, yycolumn+1, yytext()); }
-"<"                                    { new Symbol(ParserSym.MENOR_IZ, yyline+1, yycolumn, yytext()); }
+"<"                                    { return new Symbol(ParserSym.MENOR_IZ, yyline+1, yycolumn, yytext()); }
 ">"                                    { return new Symbol(ParserSym.MAYOR_DER, yyline+1, yycolumn+1, yytext()); }
 "h1>"                                  { return new Symbol(ParserSym.H1, yyline+1, yycolumn+1, yytext()); }
 "h2>"                                  { return new Symbol(ParserSym.H2, yyline+1, yycolumn+1, yytext()); }
