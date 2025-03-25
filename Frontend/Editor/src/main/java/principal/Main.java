@@ -17,9 +17,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //CONEXIÓN WEBSOCKET
-        /*Cliente cliente = new Cliente();
+        Cliente cliente = new Cliente();
         System.out.println("Iniciando cliente");
-        cliente.iniciarCliente();*/
+        cliente.iniciarCliente();
         //GUI
         Rectangle2D tamañoPantalla = Screen.getPrimary().getVisualBounds();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ventana-principal.fxml"));

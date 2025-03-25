@@ -60,7 +60,8 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 "h4>"                                  { return new Symbol(ParserSym.H4, yyline+1, yycolumn+1, yytext()); }
 "h5>"                                  { return new Symbol(ParserSym.H5, yyline+1, yycolumn+1, yytext()); }
 "h6>"                                  { return new Symbol(ParserSym.H6, yyline+1, yycolumn+1, yytext()); }
-"p>"                                   { return new Symbol(ParserSym.PARRAFO_ETIQUETA, yyline+1, yycolumn+1, yytext()); }
+"p"                                    { return new Symbol(ParserSym.PARRAFO_ETIQUETA, yyline+1, yycolumn+1, yytext()); }
+"p>"                                   { return new Symbol(ParserSym.PARRAFO_CIERRE, yyline+1, yycolumn+1, yytext()); }
 "<input value"                         { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
 "value"                                { return new Symbol(ParserSym.VALUE, yyline+1, yycolumn+1, yytext()); }
 "button"                               { return new Symbol(ParserSym.BUTTON, yyline+1, yycolumn+1, yytext()); }
