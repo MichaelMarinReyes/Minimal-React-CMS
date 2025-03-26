@@ -6,7 +6,65 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Cliente extends Conexion {
+    private static Cliente instancia;
 
+    private Cliente() throws IOException {
+        super("cliente");
+        this.enviarAlServer = new DataOutputStream(socket.getOutputStream());
+        this.mensajeDelServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    }
+
+    public static Cliente getInstancia() throws IOException {
+        if (instancia == null) {
+            instancia = new Cliente();
+        }
+        return instancia;
+    }
+
+    private String enviarSolicitud(String metodo, String mensaje) {
+        try {
+            enviarAlServer.writeUTF(metodo + " " + mensaje);
+            System.out.println("Enviado: " + mensaje);
+            return mensajeDelServer.readLine(); // RESPUESTA DEL SERVIDOR
+        } catch (IOException e) {
+            return "ERROR al enviar mensaje: " + e.getMessage();
+        }
+    }
+
+    public String get(String mensaje) {
+        return enviarSolicitud("GET", mensaje);
+    }
+
+    public String post(String mensaje) {
+        return enviarSolicitud("POST", mensaje);
+    }
+
+    public String patch(String mensaje) {
+        return enviarSolicitud("PATCH", mensaje);
+    }
+
+    public String delete(String mensaje) {
+        return enviarSolicitud("DELETE", mensaje);
+    }
+
+    public void cerrarConexion() {
+        try {
+            if (enviarAlServer != null) {
+                enviarAlServer.close();
+            }
+            if (mensajeDelServer != null) {
+                mensajeDelServer.close();
+            }
+            if (socket != null) {
+                socket.close();
+            }
+            System.out.println("Conexión cerrada");
+        } catch (IOException e) {
+            System.out.println("ERROR al cerrar conexión: " + e.getMessage());
+        }
+    }
+
+    /*
     public Cliente() throws IOException {
         super("cliente");
     }
@@ -17,34 +75,15 @@ public class Cliente extends Conexion {
             mensajeDelServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             System.out.println("Conectado");
+            enviaElServer = new DataOutputStream(socket.getOutputStream());
+            mensajeDelServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            Thread hiloCliente = new Thread(() -> {
-                try {
-                    // Mantener la conexión activa
-                    while (true) {
-                        // Puedes realizar alguna acción periódica, como recibir mensajes del servidor
-                        String mensajeDelServidor = mensajeDelServer.readLine();
-                        if (mensajeDelServidor != null) {
-                            System.out.println("Mensaje del servidor: " + mensajeDelServidor);
-                        }
-                    }
-                } catch (IOException e) {
-                    System.out.println("Error en la comunicación: " + e.getMessage());
-                }
-            });
-
-            hiloCliente.setDaemon(true);  // Este hilo se cerrará automáticamente cuando la aplicación termine
-            hiloCliente.start();  // Iniciar el hilo en segundo plano
-
-//            enviaElServer = new DataOutputStream(socket.getOutputStream());
-//            mensajeDelServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//
-//            System.out.println("Conectado");
-//            for (int i = 0; i < 2; i++) {
-//                enviaElServer.writeUTF("Este esl el mensaje número " + (i+1) + "\n");
-//                System.out.println(mensajeDelServer.readLine());
-//            }
-//            socket.close();
+            System.out.println("Conectado");
+            for (int i = 0; i < 2; i++) {
+                enviaElServer.writeUTF("Este esl el mensaje número " + (i+1) + "\n");
+                System.out.println(mensajeDelServer.readLine());
+            }
+            socket.close();
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -63,5 +102,5 @@ public class Cliente extends Conexion {
         } catch (IOException e) {
             System.out.println("Error al enviar el texto: " + e.getMessage());
         }
-    }
+    }*/
 }

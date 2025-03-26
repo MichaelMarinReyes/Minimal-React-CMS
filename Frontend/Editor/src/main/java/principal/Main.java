@@ -17,9 +17,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         //CONEXIÓN WEBSOCKET
-        Cliente cliente = new Cliente();
+        /*try {
+            Cliente cliente = Cliente.getInstancia();
+            System.out.println("Cliente conectado: ");
+        } catch (IOException e) {
+            System.err.println("Error al conectar el servidor " + e.getMessage());
+        }*/
+        /*Cliente cliente = new Cliente();
         System.out.println("Iniciando cliente");
-        cliente.iniciarCliente();
+        cliente.iniciarCliente();*/
         //GUI
         Rectangle2D tamañoPantalla = Screen.getPrimary().getVisualBounds();
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("ventana-principal.fxml"));
@@ -28,6 +34,16 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        try {
+            Cliente.getInstancia().cerrarConexion();
+            System.out.println("Cliente desconectado");
+        } catch (IOException e) {
+            System.err.println("Error al desconectar el servidor " + e.getMessage());
+        }
     }
 
     public static void main(String[] args) {

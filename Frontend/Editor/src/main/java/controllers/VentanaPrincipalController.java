@@ -7,9 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import utils.RutaVista;
 
@@ -18,13 +16,15 @@ import java.io.IOException;
 
 public class VentanaPrincipalController {
     @FXML
-    private AnchorPane contenedorPrincipal;
+    private BorderPane contenedorPrincipal;
     @FXML
     private MenuItem abrirEditorMenuItem;
     @FXML
     private MenuItem abrirChooserMenuItem;
     @FXML
     private HBox chooser = new HBox();
+    private double width = 0;
+    private double height = 0;
 
     @FXML
     public void initialize() {
@@ -33,13 +33,13 @@ public class VentanaPrincipalController {
 
         //REDIMENSIONAMIENTO DE CONTENEDOR
         contenedorPrincipal.widthProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
+            contenedorPrincipal.setMaxWidth(newValue.doubleValue());
         });
 
         contenedorPrincipal.heightProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue);
+            contenedorPrincipal.setMaxHeight(newValue.doubleValue());
         });
-
+        contenedorPrincipal.setPrefSize(width, height);
         //cargarVista(RutaVista.PESTAÑAS_EDITOR.getPath());
         cargarVista(RutaVista.EDITOR_TEXTO.getPath());
     }
@@ -48,8 +48,11 @@ public class VentanaPrincipalController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Node vista = loader.load();
-            contenedorPrincipal.setPrefSize(contenedorPrincipal.getWidth(), contenedorPrincipal.getHeight());
-            contenedorPrincipal.getChildren().setAll(vista);
+            contenedorPrincipal.setCenter(vista);
+            contenedorPrincipal.setMaxWidth(width);
+            contenedorPrincipal.setMaxHeight(height);
+            //contenedorPrincipal.setPrefSize(contenedorPrincipal.getWidth(), contenedorPrincipal.getHeight());
+            //contenedorPrincipal.getChildren().setAll(vista);
         } catch (IOException e) {
             e.printStackTrace();
         }

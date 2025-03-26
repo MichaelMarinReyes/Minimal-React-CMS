@@ -12,7 +12,7 @@ public class Conexion {
     protected ServerSocket serverSocket;
     protected Socket socket;
     protected BufferedReader mensajeDelServer;
-    protected DataOutputStream enviaElServer;
+    protected DataOutputStream enviarAlServer;
 
     public Conexion(String tipo) throws IOException {
         if (tipo.equalsIgnoreCase("SERVIDOR")) {

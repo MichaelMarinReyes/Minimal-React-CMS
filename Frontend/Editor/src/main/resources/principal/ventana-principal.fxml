@@ -35,6 +35,6 @@
         </MenuBar>
     </top>
     <center>
-        <AnchorPane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
+        <BorderPane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
     </center>
 </BorderPane>
