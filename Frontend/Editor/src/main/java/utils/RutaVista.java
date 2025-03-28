@@ -1,6 +1,7 @@
 package utils;
 
 public enum RutaVista {
+    VENTANA("/principal/ventana-principal.fxml"),
     EDITOR_TEXTO("/principal/editor-texto.fxml"),
     PESTAÑAS_EDITOR("/principal/pestañas-editor.fxml");
 

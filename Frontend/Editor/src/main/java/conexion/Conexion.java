@@ -1,6 +1,7 @@
 package conexion;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,7 +12,7 @@ public class Conexion {
     private final String HOST = "localhost";
     protected ServerSocket serverSocket;
     protected Socket socket;
-    protected BufferedReader mensajeDelServer;
+    protected DataInputStream mensajeDelServer;
     protected DataOutputStream enviarAlServer;
 
     public Conexion(String tipo) throws IOException {

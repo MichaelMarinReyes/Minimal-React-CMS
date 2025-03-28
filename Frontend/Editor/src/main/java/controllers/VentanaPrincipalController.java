@@ -1,13 +1,14 @@
 package controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import utils.RutaVista;
 
@@ -23,8 +24,8 @@ public class VentanaPrincipalController {
     private MenuItem abrirChooserMenuItem;
     @FXML
     private HBox chooser = new HBox();
-    private double width = 0;
-    private double height = 0;
+    @FXML
+    private MenuBar menuBar;
 
     @FXML
     public void initialize() {
@@ -39,8 +40,8 @@ public class VentanaPrincipalController {
         contenedorPrincipal.heightProperty().addListener((observable, oldValue, newValue) -> {
             contenedorPrincipal.setMaxHeight(newValue.doubleValue());
         });
-        contenedorPrincipal.setPrefSize(width, height);
         //cargarVista(RutaVista.PESTAÑAS_EDITOR.getPath());
+        menuBar.setBackground(new Background(new BackgroundFill(Color.web("#109ed3"), CornerRadii.EMPTY, Insets.EMPTY)));
         cargarVista(RutaVista.EDITOR_TEXTO.getPath());
     }
 
@@ -48,13 +49,14 @@ public class VentanaPrincipalController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             Node vista = loader.load();
+            contenedorPrincipal.setPrefSize(menuBar.getPrefWidth(), menuBar.getPrefHeight());
             contenedorPrincipal.setCenter(vista);
-            contenedorPrincipal.setMaxWidth(width);
-            contenedorPrincipal.setMaxHeight(height);
+            //contenedorPrincipal.setMaxWidth(width);
+            //contenedorPrincipal.setMaxHeight(height);
             //contenedorPrincipal.setPrefSize(contenedorPrincipal.getWidth(), contenedorPrincipal.getHeight());
             //contenedorPrincipal.getChildren().setAll(vista);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error al cargar vista: " + e.getMessage());
         }
     }
 

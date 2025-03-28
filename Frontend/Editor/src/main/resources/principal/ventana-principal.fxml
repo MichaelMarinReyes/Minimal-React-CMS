@@ -3,12 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.VentanaPrincipalController"
-            prefHeight="400.0" prefWidth="600.0">
-    <top>
-        <MenuBar>
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaPrincipalController">
+        <MenuBar fx:id="menuBar">
             <menus>
                 <Menu id="archivoBoton" mnemonicParsing="false" text="Archivo">
                     <items>
@@ -33,8 +29,6 @@
                 </Menu>
             </menus>
         </MenuBar>
-    </top>
-    <center>
-        <BorderPane fx:id="contenedorPrincipal" prefHeight="350.0" prefWidth="600.0"/>
-    </center>
-</BorderPane>
+
+        <BorderPane fx:id="contenedorPrincipal" VBox.vgrow="ALWAYS" />
+</VBox>

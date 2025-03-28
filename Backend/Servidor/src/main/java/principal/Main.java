@@ -1,12 +1,8 @@
 package principal;
 
-import analizadores.Lexer;
-import analizadores.Parser;
 import conexion.Servidor;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.Scanner;
+
 
 public class Main {
 
