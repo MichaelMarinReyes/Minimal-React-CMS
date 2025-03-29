@@ -9,7 +9,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Servidor servidor = new Servidor();
         System.out.println("Iniciando servidor...");
-        servidor.iniciarServer();/*
+        servidor.iniciarServer();
+        /*
         System.out.println("Ingrese texto:");
         Scanner sc = new Scanner(System.in);
         String texto = sc.nextLine();

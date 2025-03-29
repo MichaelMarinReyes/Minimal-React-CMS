@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08e4c9bf-d279-498b-bb1a-3c6bd32c992a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/principal/Analizar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/antlr4/analizadores/antlr4/Analizador.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr4/analizadores/antlr4/Analizador.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/cup/parser.cup" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/cup/parser.cup" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/principal/Analizar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/principal/Analizar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/principal/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/jflex/lexer.flex" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/jflex/lexer.flex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/conexion/Conexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/EditorTextoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/EditorTextoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VentanaPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VentanaPrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/utils/RutaVista.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/utils/RutaVista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/ventana-principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/ventana-principal.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +27,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -109,7 +106,7 @@
       <workItem from="1742916096879" duration="1813000" />
       <workItem from="1742961089509" duration="701000" />
       <workItem from="1743098476281" duration="3358000" />
-      <workItem from="1743180893610" duration="2934000" />
+      <workItem from="1743180893610" duration="18624000" />
     </task>
     <servers />
   </component>

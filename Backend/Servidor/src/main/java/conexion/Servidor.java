@@ -24,6 +24,8 @@ public class Servidor extends Conexion {
             while (true) {
                 mensajeDelCliente = entrada.readUTF();
                 analizar = new Analizar(mensajeDelCliente);
+                //enviarAlCliente.writeUTF(analizar.analizarAntlr4());
+                System.out.println("Cadena que se va a analizar: " + mensajeDelCliente);
                 enviarAlCliente.writeUTF(analizar.analizar());
                 enviarAlCliente.writeUTF("mensaje recibido");
             }

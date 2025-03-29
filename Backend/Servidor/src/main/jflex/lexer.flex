@@ -52,17 +52,23 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 "false"                                { return new Symbol(ParserSym.FALSE, yyline+1, yycolumn+1, yytext()); }
 "void"                                 { return new Symbol(ParserSym.VOID, yyline+1, yycolumn+1, yytext()); }
 "main"                                 { return new Symbol(ParserSym.MAIN, yyline+1, yycolumn+1, yytext()); }
-"<"                                    { return new Symbol(ParserSym.MENOR_IZ, yyline+1, yycolumn, yytext()); }
-">"                                    { return new Symbol(ParserSym.MAYOR_DER, yyline+1, yycolumn+1, yytext()); }
+"const"                                { return new Symbol(ParserSym.CONST, yyline+1, yycolumn+1, yytext()); }
+"var"                                  { return new Symbol(ParserSym.VAR, yyline+1, yycolumn+1, yytext()); }
+"string"                               { return new Symbol(ParserSym.STRING, yyline+1, yycolumn+1, yytext()); }
+"number"                               { return new Symbol(ParserSym.NUMBER, yyline+1, yycolumn+1, yytext()); }
+"function"                             { return new Symbol(ParserSym.FUNCTION, yyline+1, yycolumn+1, yytext()); }
+"return"                               { return new Symbol(ParserSym.RETURN, yyline+1, yycolumn+1, yytext()); }
+"<"                                    { return new Symbol(ParserSym.MENOR_QUE, yyline+1, yycolumn, yytext()); }
+">"                                    { return new Symbol(ParserSym.MAYOR_QUE, yyline+1, yycolumn+1, yytext()); }
 "h1>"                                  { return new Symbol(ParserSym.H1, yyline+1, yycolumn+1, yytext()); }
 "h2>"                                  { return new Symbol(ParserSym.H2, yyline+1, yycolumn+1, yytext()); }
 "h3>"                                  { return new Symbol(ParserSym.H3, yyline+1, yycolumn+1, yytext()); }
 "h4>"                                  { return new Symbol(ParserSym.H4, yyline+1, yycolumn+1, yytext()); }
 "h5>"                                  { return new Symbol(ParserSym.H5, yyline+1, yycolumn+1, yytext()); }
 "h6>"                                  { return new Symbol(ParserSym.H6, yyline+1, yycolumn+1, yytext()); }
-"p"                                    { return new Symbol(ParserSym.PARRAFO_ETIQUETA, yyline+1, yycolumn+1, yytext()); }
-"p>"                                   { return new Symbol(ParserSym.PARRAFO_CIERRE, yyline+1, yycolumn+1, yytext()); }
-"<input value"                         { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
+"<p>"                                  { return new Symbol(ParserSym.PARRAFO_ETIQUETA, yyline+1, yycolumn+1, yytext()); }
+"</p>"                                 { return new Symbol(ParserSym.PARRAFO_CIERRE, yyline+1, yycolumn+1, yytext()); }
+"<input"                               { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
 "value"                                { return new Symbol(ParserSym.VALUE, yyline+1, yycolumn+1, yytext()); }
 "button"                               { return new Symbol(ParserSym.BUTTON, yyline+1, yycolumn+1, yytext()); }
 "onClick"                              { return new Symbol(ParserSym.ONCLICK, yyline+1, yycolumn+1, yytext()); }
@@ -70,9 +76,23 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 "]"                                    { return new Symbol(ParserSym.CORCHETE_CIERRA, yyline+1, yycolumn+1, yytext()); }
 "{"                                    { return new Symbol(ParserSym.LLAVE_ABRE, yyline+1, yycolumn+1, yytext()); }
 "}"                                    { return new Symbol(ParserSym.LLAVE_CIERRA, yyline+1, yycolumn+1, yytext()); }
+"("                                    { return new Symbol(ParserSym.PAREN_ABRE, yyline+1, yycolumn+1, yytext()); }
+")"                                    { return new Symbol(ParserSym.PAREN_CIERRA, yyline+1, yycolumn+1, yytext()); }
+\"                                     { return new Symbol(ParserSym.COMILLAS, yyline+1, yycolumn+1, yytext()); }
+"+"                                    { return new Symbol(ParserSym.SUMA, yyline+1, yycolumn+1, yytext()); }
+"-"                                    { return new Symbol(ParserSym.RESTA, yyline+1, yycolumn+1, yytext()); }
+"*"                                    { return new Symbol(ParserSym.MULTIPLICACION, yyline+1, yycolumn+1, yytext()); }
+\/                                     { return new Symbol(ParserSym.DIVISION, yyline+1, yycolumn+1, yytext()); }
+"^"                                    { return new Symbol(ParserSym.POTENCIA, yyline+1, yycolumn+1, yytext()); }
 "="                                    { return new Symbol(ParserSym.IGUAL, yyline+1, yycolumn+1, yytext()); }
+">="                                   { return new Symbol(ParserSym.MAYOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
+"<="                                   { return new Symbol(ParserSym.MENOR_IGUAL, yyline+1, yycolumn+1, yytext()); }
+"=>"                                   { return new Symbol(ParserSym.FLECHA, yyline+1, yycolumn+1, yytext()); }
+"||"                                   { return new Symbol(ParserSym.OR, yyline+1, yycolumn+1, yytext()); }
+"&&"                                   { return new Symbol(ParserSym.AND, yyline+1, yycolumn+1, yytext()); }
+"!"                                    { return new Symbol(ParserSym.NEGACION, yyline+1, yycolumn+2, yytext()); }
 "."                                    { return new Symbol(ParserSym.PUNTO, yyline+1, yycolumn+1, yytext()); }
-\/                                     { return new Symbol(ParserSym.DIAGONAL, yyline+1, yycolumn+1, yytext()); }
+";"                                    { return new Symbol(ParserSym.PUNTO_COMA, yyline+1, yycolumn+1, yytext()); }
 {TEXTO}                                { return new Symbol(ParserSym.TEXTO, yyline+1, yycolumn+1, yytext()); }
 {PARRAFO}                              { return new Symbol(ParserSym.PARRAFO, yyline+1, yycolumn+1, yytext()); }
 {PATH_TOML}                            { return new Symbol(ParserSym.ATRIBUTO_PATH, yyline+1, yycolumn+1, yytext()); }
@@ -80,8 +100,8 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 {NUMERO}                               { return new Symbol(ParserSym.NUMERO, yyline+1, yycolumn+1, yytext()); }
 {CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
 {CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
-{ID}({ID}|{DIGITO}|_)*                 { System.out.println(yytext());return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
-[ \t\n\r]+                             { /* Ignorar tabulaciones, saltos de línea y retorno */ }
+{ID}({ID}|{DIGITO}|_)*                 { return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
+[ \t\n\r]+                             { System.out.println("ignorando saltos, tab y retorno");/* Ignorar tabulaciones, saltos de línea y retorno */ }
 "\/\/".*                               { /* Ignorar comentarios de una línea */ }
 "/*"([^*]|"*"[^/])*"*/"                { /* Ignorar comentarios multilínea */ }
 <<EOF>>                                { return new Symbol(ParserSym.EOF); }

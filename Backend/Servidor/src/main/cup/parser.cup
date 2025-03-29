@@ -33,88 +33,87 @@ parser code {:
 :}
 
 terminal ID, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
-terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH, PUNTO, MENOR_IZ, MAYOR_DER, DIAGONAL;
-terminal MAIN, H1, H2, H3, H4, H5, H6, INPUT, VALUE, BUTTON, ONCLICK, TEXTO, LLAVE_ABRE, LLAVE_CIERRA, PARRAFO, PARRAFO_ETIQUETA, PARRAFO_CIERRE;
+terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH, PUNTO, MENOR_QUE, MAYOR_QUE, DIVISION, RESTA, MULTIPLICACION, POTENCIA, MAYOR_IGUAL, MENOR_IGUAL, FLECHA;
+terminal MAIN, H1, H2, H3, H4, H5, H6, INPUT, VALUE, BUTTON, ONCLICK, TEXTO, LLAVE_ABRE, LLAVE_CIERRA, PARRAFO, PARRAFO_ETIQUETA, PARRAFO_CIERRE, OR, AND, NEGACION;
+terminal CONST, VAR, STRING, NUMBER, FUNCTION, RETURN, PAREN_ABRE, PAREN_CIERRA, COMILLAS, SUMA, PUNTO_COMA;
 non terminal inicial, metodos, objetivo, request, sCL_instruccion, parametros, body_html, response, codigo, lenguajeToml, etiquetas, atributos, path, accion, prueba, id_etiqueta, contenido;
-non terminal header, inputs, buttons, tipo_titulo, texto, parrafos;
+non terminal header, inputs, buttons, tipo_titulo, texto, parrafos, calculadora;
+non terminal minimal_react, cuerpo_minimal;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
+precedence left SUMA, RESTA;
+precedence left MULTIPLICACION, DIVISION;
+precedence left POTENCIA;
+precedence left MAYOR_QUE, MENOR_QUE, MAYOR_IGUAL, MENOR_IGUAL;
+precedence left OR, AND;
+precedence left NEGACION;
+precedence left IGUAL;
 
-start with prueba;
-
-prueba ::= body_html:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | parrafos:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | texto:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | header:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | buttons:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | inputs:pr  {:texto = "prueba: " + String.valueOf(pr);:}
-            | request:pr {:texto = "prueba: " + String.valueOf(pr);:}
-            | response:pr {:texto = "prueba: " + String.valueOf(pr);:};
+start with inicial;
 
 inicial ::= request:request                 {: texto = "req: " + String.valueOf(request); :}
           | response:response               {: texto = "resp: " + String.valueOf(response); :}
           | lenguajeToml:toml               {: texto = "toml: " + String.valueOf(toml); :};
 
 //LENGUAJE SHTTP
-//request ::= metodos:met objetivo:ob sCL_instruccion:scl body_html:bod {: RESULT = String.valueOf(met + " " + ob + " " + scl + " " + bod); :};
-request ::= metodos:met objetivo:ob sCL_instruccion:scl {: System.out.println("http sin body "  + String.valueOf(met) + " " + String.valueOf(ob) + " " + String.valueOf(scl));RESULT = String.valueOf(met + " " + ob + " " + scl); :};
+request ::= metodos:met objetivo:ob sCL_instruccion:scl body_html:bod {: RESULT = met.toString() + ob.toString() + scl.toString() + bod.toString(); :};
 
-metodos ::= GET:req                          {: RESULT = req; :} //metodos
+metodos ::= GET:req                          {: RESULT = req; :} //metodos del request
           | POST:req                         {: RESULT = req; :}
           | PATCH:req                        {: RESULT = req; :}
-          | DELETE:req                       {: RESULT = req; :};
-         // | error:er                         {: report_error("Se esperaba alguna de las siguientes request: \"get\" \"post\" \"patch\" \"delete\"", er); :};
+          | DELETE:req                       {: RESULT = req; :}
+          | error:er                         {: report_error("Se esperaba alguna de las siguientes request: \"get\", \"post\", \"patch\", \"delete\"", er); RESULT = ""; :};
 
 objetivo ::= SITIO:ob                        {: RESULT = ob; :}
-           | PAGINA:ob                       {: RESULT = ob; :};
-           //| error:er                        {: report_error("Se esperaba \"sitio\" o \"pagina\"", er); :};
+           | PAGINA:ob                       {: RESULT = ob; :}
+           | error:er                        {: report_error("Se esperaba \"sitio\" o \"pagina\"", er); RESULT = ""; :};
 
-sCL_instruccion ::= accion:ac objetivo:ob parametros:param {: RESULT = String.valueOf(ac + " " + ob + " " + param); :};
+sCL_instruccion ::= accion:ac objetivo:ob parametros:param {: RESULT = ac.toString() + ob.toString() + param.toString(); :};
 
 accion ::= CREAR:crud                        {: RESULT = crud; :}
          | AGREGAR:crud                      {: RESULT = crud; :}
          | ELIMINAR:crud                     {: RESULT = crud; :}
-         | MODIFICAR:crud                    {: RESULT = crud; :};
-         //| error:er                          {: report_error("Se esperaba alguna de las siguientes instrucciones: \"crear\" \"agregar\" \"eliminar\" \"modificar\"", er); :};
+         | MODIFICAR:crud                    {: RESULT = crud; :}
+         | error:er                          {: report_error("Se esperaba alguna de las siguientes acciones: \"crear\", \"agregar\", \"eliminar\", \"modificar\"", er); RESULT = ""; :};
 
 parametros ::= ID:id                         {: RESULT = id;:}
              | ID:id parametros:param        {: RESULT = String.valueOf(id + " " + param);:};
 
 
-//response ::= codigo:response body_html:html {: RESULT = response.toString() + html.toString(); :};
-response ::= codigo:response {:System.out.println("response sin body"); RESULT = response; :};// body;
-
+response ::= codigo:response body_html:html {: RESULT = response.toString() + html.toString(); :};
 
 codigo ::= SUCCESS:cod                       {: RESULT = cod; :}
          | NOT_FOUND:cod                     {: RESULT = cod; :}
-         | INTERNAL_SERVER_ERROR:cod         {: RESULT = cod; :};
+         | INTERNAL_SERVER_ERROR:cod         {: RESULT = cod; :}
+         | error:err                         {: report_error("Se esperaba alguno de los siguientes códigos: \"succes\", \"not_found\", \"internal_server_error\"", err); RESULT  = ""; :};
 
 
 //BODY HTML
-body_html ::= MENOR_IZ:iz MAIN:ma MAYOR_DER:de contenido:cont MENOR_IZ:izq DIAGONAL:dia MAIN:main MAYOR_DER:der {:  RESULT = iz.toString() + ma.toString() + de.toString() + cont.toString() + izq.toString() + dia.toString() + main.toString() + der.toString(); :};
+body_html ::= MENOR_QUE:iz MAIN:ma MAYOR_QUE:de contenido:cont MENOR_QUE:izq DIVISION:dia MAIN:main MAYOR_QUE:der {:  RESULT = iz.toString() + ma.toString() + de.toString() + cont.toString() + izq.toString() + dia.toString() + main.toString() + der.toString(); :};
 
 contenido ::= header:hed                    {: RESULT = hed; :}
             | parrafos:parr                 {: RESULT = parr; :}
             | inputs:inputs {: RESULT = inputs; :}
             | buttons:btn {: RESULT = btn; :};
 
-header ::= MENOR_IZ:men H1:h texto:text MENOR_IZ:iz DIAGONAL:di H1:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
-         | MENOR_IZ:men H2:h texto:text MENOR_IZ:iz DIAGONAL:di H2:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
-         | MENOR_IZ:men H3:h texto:text MENOR_IZ:iz DIAGONAL:di H3:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
-         | MENOR_IZ:men H4:h texto:text MENOR_IZ:iz DIAGONAL:di H4:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
-         | MENOR_IZ:men H5:h texto:text MENOR_IZ:iz DIAGONAL:di H5:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
-         | MENOR_IZ:men H6:h texto:text MENOR_IZ:iz DIAGONAL:di H6:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :};
+header ::= MENOR_QUE:men H1:h texto:text MENOR_QUE:iz DIVISION:di H1:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
+         | MENOR_QUE:men H2:h texto:text MENOR_QUE:iz DIVISION:di H2:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
+         | MENOR_QUE:men H3:h texto:text MENOR_QUE:iz DIVISION:di H3:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
+         | MENOR_QUE:men H4:h texto:text MENOR_QUE:iz DIVISION:di H4:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
+         | MENOR_QUE:men H5:h texto:text MENOR_QUE:iz DIVISION:di H5:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
+         | MENOR_QUE:men H6:h texto:text MENOR_QUE:iz DIVISION:di H6:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :};
 
-parrafos ::= MENOR_IZ:men PARRAFO_CIERRE:p texto:txt MENOR_IZ:iz DIAGONAL:di PARRAFO_CIERRE:par     {: RESULT = men.toString() + p.toString() + txt.toString() + iz.toString() + di.toString() + par.toString(); :};
+parrafos ::= PARRAFO_ETIQUETA:p texto:txt PARRAFO_CIERRE:par     {: RESULT = p.toString() + txt.toString() + par.toString(); :};
 
-inputs ::= INPUT:in IGUAL:ig LLAVE_ABRE:abre LLAVE_CIERRA:cierre DIAGONAL:di MAYOR_DER:der {: System.out.println(in.toString() + ig.toString() + abre.toString() + cierre.toString() + di.toString() + der.toString());RESULT = in.toString() + ig.toString(); :};
+inputs ::= INPUT:in VALUE:val IGUAL:ig LLAVE_ABRE:abre ID:id LLAVE_CIERRA:cierre DIVISION:di MAYOR_QUE:der {: System.out.println(in.toString() + val.toString() + ig.toString() + abre.toString() + id.toString() + cierre.toString() + di.toString() + der.toString());
+                    RESULT = in.toString() + val.toString() + ig.toString() + abre.toString() + id.toString() + cierre.toString() + di.toString() + der.toString(); :};
 
 texto ::= TEXTO:txt                                                             {: RESULT = txt; :}
         | TEXTO:txt LLAVE_ABRE:abre ID:id LLAVE_CIERRA:cierra                   {: RESULT = String.valueOf(txt + "" + abre + "" + id + "" + cierra); :}
         | TEXTO:txt LLAVE_ABRE:abre ID:id LLAVE_CIERRA:cierra texto:texto       {: RESULT = String.valueOf(txt + "" + abre + "" + id + "" + cierra + "" + texto); :};
 
 
-buttons ::= MENOR_IZ BUTTON ONCLICK IGUAL LLAVE_ABRE ID LLAVE_CIERRA MAYOR_DER TEXTO MENOR_IZ DIAGONAL BUTTON MAYOR_DER {:RESULT = "BOTON FUNCIONANDO"; :};
+buttons ::= MENOR_QUE BUTTON ONCLICK IGUAL LLAVE_ABRE ID LLAVE_CIERRA MAYOR_QUE TEXTO MENOR_QUE DIVISION BUTTON MAYOR_QUE {:RESULT = "BOTON FUNCIONANDO"; :};
 
 
 //LENGUAJE TOML
@@ -129,3 +128,25 @@ id_etiqueta ::= ID:id PUNTO:pt ID:ids                                   {: RESUL
 atributos ::= NOMBRE:nombre IGUAL:igual CADENA:cadena                   {: RESULT = nombre.toString() + igual.toString() + cadena.toString(); :}
             | PATH:path IGUAL:igual ATRIBUTO_PATH:id                    {: RESULT = path.toString() + " " + igual.toString() + " " + id.toString(); :}
             ;//| PATH:path IGUAL:igual ATRIBUTO_PATH:atrPath;
+
+//MINIMAL REACT
+minimal_react ::= CONST:cons ID:id  IGUAL:igual PAREN_ABRE:parenAbre PAREN_CIERRA:parenCierra FLECHA:flecha LLAVE_ABRE:abre cuerpo_minimal:minimal RETURN:ret PAREN_ABRE:parAbre /**HTML*/ PAREN_CIERRA:parCierre PUNTO_COMA:puntoComa LLAVE_CIERRA:llaveCierra
+                    {: System.out.println(cons.toString() + id.toString() + parenAbre.toString() + parenCierra.toString() + flecha.toString() + minimal.toString() + ret.toString() + parAbre.toString() + parCierre.toString() + puntoComa.toString() + llaveCierra.toString());
+                       RESULT = cons.toString() + id.toString() + parenAbre.toString() + parenCierra.toString() + flecha.toString() + minimal.toString() + ret.toString() + parAbre.toString() + parCierre.toString() + puntoComa.toString() + llaveCierra.toString(); :};
+
+cuerpo_minimal ::= VAR:var {: RESULT = var; :};
+
+
+//CALCULADORA
+
+calculadora ::= RESTA calculadora:e1                                  {: RESULT = (-1 * ((Number)e1).doubleValue()); :}
+              | calculadora:e1 SUMA:s calculadora:e2                  {: RESULT = ((Number)e1).doubleValue() + ((Number)e2).doubleValue(); :}
+              | calculadora:e1 RESTA:s calculadora:e2                 {: RESULT = ((Number)e1).doubleValue() - ((Number)e2).doubleValue(); :}
+              | calculadora:e1 MULTIPLICACION:s calculadora:e2        {: RESULT = ((Number)e1).doubleValue() * ((Number)e2).doubleValue(); :}
+              | calculadora:e1 DIVISION:s calculadora:e2              {: if (((Number)e2).doubleValue() == 0) {
+                                                                            report_error("División por cero", e2);
+                                                                         }
+                                                                        RESULT = ((Number)e1).doubleValue() / ((Number)e2).doubleValue(); :}
+             | calculadora:e1 POTENCIA:s calculadora:e2               {: RESULT = Math.pow(((Number)e1).doubleValue(), ((Number)e2).doubleValue()); :}
+             | PAREN_ABRE calculadora:e PAREN_CIERRA                  {: RESULT = ((Number)e).doubleValue(); :}
+             | NUMERO:n                                               {: RESULT = ((Number)n).doubleValue(); :};
