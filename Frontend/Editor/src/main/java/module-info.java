@@ -12,6 +12,7 @@ module proyecto1.editor {
     requires com.almasb.fxgl.all;
     requires javax.websocket.api;
     requires tyrus.client;
+    requires java.desktop;
 
     opens principal to javafx.fxml;
     exports principal;

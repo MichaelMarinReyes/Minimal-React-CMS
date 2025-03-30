@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class EditorTextoController {
@@ -82,16 +83,20 @@ public class EditorTextoController {
     @FXML
     public void obtenerTexto() {
         texto = textArea.getText();  // Obtener el texto de la TextArea
-        System.out.println("TEXTO DEL EDITOR: " + texto);
-        new Thread(() -> {
-            Cliente cliente = null;
-            try {
-                cliente = Cliente.getInstancia();
-                System.out.println(cliente.post(texto));
-            } catch (IOException e) {
-                System.err.println("Error al enviar texto: " + e.getMessage());
-            }
-        }).start();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No se ha ingresado texto");
+        } else {
+            System.out.println("TEXTO DEL EDITOR: " + texto);
+            new Thread(() -> {
+                Cliente cliente = null;
+                try {
+                    cliente = Cliente.getInstancia();
+                    System.out.println(cliente.post(texto));
+                } catch (IOException e) {
+                    System.err.println("Error al enviar texto: " + e.getMessage());
+                }
+            }).start();
+        }
     }
 
 }

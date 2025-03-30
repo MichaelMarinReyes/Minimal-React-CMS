@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VentanaPrincipalController">
-        <MenuBar fx:id="menuBar">
+        <MenuBar fx:id="menuBar" style="-fx-background-color: #109ed3;">
             <menus>
                 <Menu id="archivoBoton" mnemonicParsing="false" text="Archivo">
                     <items>
@@ -21,6 +21,7 @@
                 <Menu id="visualizadorBoton" mnemonicParsing="false" text="Visualizador">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Abrir archivo TOML" />
+               <MenuItem fx:id="webViewMenuItem" mnemonicParsing="false" text="WebView" />
                     </items>
                 </Menu>
 
@@ -30,5 +31,5 @@
             </menus>
         </MenuBar>
 
-        <BorderPane fx:id="contenedorPrincipal" VBox.vgrow="ALWAYS" />
+        <BorderPane fx:id="contenedorPrincipal" style="-fx-background-color: #086787;" VBox.vgrow="ALWAYS" />
 </VBox>
