@@ -52,7 +52,7 @@ public class Analizar {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
             AnalizadorParser parser = new AnalizadorParser(tokens);
-            ParseTree tree = parser.prueba();
+            ParseTree tree = parser.request();
 
             ParseTreeWalker walker = new ParseTreeWalker();
             AnalizadorListener listener = new AnalizadorBaseListener();

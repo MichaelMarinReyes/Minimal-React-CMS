@@ -9,7 +9,6 @@ import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
 %public
 %class Lexer
 %unicode
-%ignorecase
 %line
 %column
 %cup
@@ -40,8 +39,10 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 "SUCCESS"                              { return new Symbol(ParserSym.SUCCESS, yyline+1, yycolumn+1, yytext()); }
 "NOT_FOUND"                            { return new Symbol(ParserSym.NOT_FOUND, yyline+1, yycolumn+1, yytext()); }
 "INTERNAL_SERVER_ERROR"                { return new Symbol(ParserSym.INTERNAL_SERVER_ERROR, yyline+1, yycolumn+1, yytext()); }
-"SITIO"                                { return new Symbol(ParserSym.SITIO, yyline+1, yycolumn+1, yytext()); }
-"PAGINA"                               { return new Symbol(ParserSym.PAGINA, yyline+1, yycolumn+1, yytext()); }
+"SITIO"                                { return new Symbol(ParserSym.SITIO_REQUEST, yyline+1, yycolumn+1, yytext()); }
+"PAGINA"                               { return new Symbol(ParserSym.PAGINA_REQUEST, yyline+1, yycolumn+1, yytext()); }
+"sitio"                                { return new Symbol(ParserSym.SITIO_SCL, yyline+1, yycolumn+1, yytext()); }
+"pagina"                               { return new Symbol(ParserSym.PAGINA_SCL, yyline+1, yycolumn+1, yytext()); }
 "crear"                                { return new Symbol(ParserSym.CREAR, yyline+1, yycolumn+1, yytext()); }
 "agregar"                              { return new Symbol(ParserSym.AGREGAR, yyline+1, yycolumn+1, yytext()); }
 "eliminar"                             { return new Symbol(ParserSym.ELIMINAR, yyline+1, yycolumn+1, yytext()); }
@@ -101,7 +102,7 @@ PARRAFO = [a-zA-Z0-9]+ | [a-zA-Z0-9 ]+ | [a-zA-Z0-9\n]+ | [a-zA-Z0-9 ]+\n[a-zA-Z
 {CADENA}                               { return new Symbol(ParserSym.CADENA, yyline+1, yycolumn+1, yytext()); }
 {CARACTER}                             { return new Symbol(ParserSym.CARACTER, yyline+1, yycolumn+1, yytext()); }
 {ID}({ID}|{DIGITO}|_)*                 { return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
-[ \t\n\r]+                             { System.out.println("ignorando saltos, tab y retorno");/* Ignorar tabulaciones, saltos de línea y retorno */ }
+[ \t\n\r]+                             { /* Ignorar tabulaciones, saltos de línea y retorno */ }
 "\/\/".*                               { /* Ignorar comentarios de una línea */ }
 "/*"([^*]|"*"[^/])*"*/"                { /* Ignorar comentarios multilínea */ }
 <<EOF>>                                { return new Symbol(ParserSym.EOF); }

@@ -32,12 +32,12 @@ parser code {:
     }
 :}
 
-terminal ID, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO, PAGINA, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
+terminal ID, GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO_REQUEST, PAGINA_REQUEST, SITIO_SCL, PAGINA_SCL, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE, PATH, CORCHETE_ABRE, CORCHETE_CIERRA, IGUAL;
 terminal NUMERO, CADENA,CARACTER,TRUE, FALSE, VOID, COMENTARIO_TOML, ATRIBUTO_PATH, PUNTO, MENOR_QUE, MAYOR_QUE, DIVISION, RESTA, MULTIPLICACION, POTENCIA, MAYOR_IGUAL, MENOR_IGUAL, FLECHA;
 terminal MAIN, H1, H2, H3, H4, H5, H6, INPUT, VALUE, BUTTON, ONCLICK, TEXTO, LLAVE_ABRE, LLAVE_CIERRA, PARRAFO, PARRAFO_ETIQUETA, PARRAFO_CIERRE, OR, AND, NEGACION;
 terminal CONST, VAR, STRING, NUMBER, FUNCTION, RETURN, PAREN_ABRE, PAREN_CIERRA, COMILLAS, SUMA, PUNTO_COMA;
 non terminal inicial, metodos, objetivo, request, sCL_instruccion, parametros, body_html, response, codigo, lenguajeToml, etiquetas, atributos, path, accion, prueba, id_etiqueta, contenido;
-non terminal header, inputs, buttons, tipo_titulo, texto, parrafos, calculadora;
+non terminal header, inputs, buttons, tipo_titulo, texto, parrafos, calculadora, objetivo_http, objetivo_scl;
 non terminal minimal_react, cuerpo_minimal;
 
 precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
@@ -49,14 +49,23 @@ precedence left OR, AND;
 precedence left NEGACION;
 precedence left IGUAL;
 
-start with inicial;
+start with prueba;
+
+prueba ::= body_html:pr {:texto = "prueba: " + String.valueOf(pr);:}
+             | texto:pr {:texto = "prueba: " + String.valueOf(pr);:}
+             | header:pr {:texto = "prueba: " + String.valueOf(pr);:}
+             | buttons:pr {:texto = "prueba: " + String.valueOf(pr);:}
+             | inputs:pr  {:texto = "prueba: " + String.valueOf(pr);:}
+             | request:pr {:texto = "prueba: " + String.valueOf(pr);:}
+             | response:pr {:texto = "prueba: " + String.valueOf(pr);:};
 
 inicial ::= request:request                 {: texto = "req: " + String.valueOf(request); :}
           | response:response               {: texto = "resp: " + String.valueOf(response); :}
           | lenguajeToml:toml               {: texto = "toml: " + String.valueOf(toml); :};
 
 //LENGUAJE SHTTP
-request ::= metodos:met objetivo:ob sCL_instruccion:scl body_html:bod {: RESULT = met.toString() + ob.toString() + scl.toString() + bod.toString(); :};
+//request ::= metodos:met objetivo:ob sCL_instruccion:scl body_html:bod {: RESULT = met.toString() + ob.toString() + scl.toString() + bod.toString(); :};
+request ::= metodos:met objetivo_http:ob sCL_instruccion:scl {: RESULT = met.toString() + ob.toString() + scl.toString(); :};
 
 metodos ::= GET:req                          {: RESULT = req; :} //metodos del request
           | POST:req                         {: RESULT = req; :}
@@ -64,11 +73,15 @@ metodos ::= GET:req                          {: RESULT = req; :} //metodos del r
           | DELETE:req                       {: RESULT = req; :}
           | error:er                         {: report_error("Se esperaba alguna de las siguientes request: \"get\", \"post\", \"patch\", \"delete\"", er); RESULT = ""; :};
 
-objetivo ::= SITIO:ob                        {: RESULT = ob; :}
-           | PAGINA:ob                       {: RESULT = ob; :}
-           | error:er                        {: report_error("Se esperaba \"sitio\" o \"pagina\"", er); RESULT = ""; :};
+objetivo_http ::= SITIO_REQUEST:ob                        {: RESULT = ob; :}
+                | PAGINA_REQUEST:ob                       {: RESULT = ob; :}
+                | error:er                                {: report_error("Se esperaba \"SITIO\" o \"PAGINA\"", er); RESULT = ""; :};
 
-sCL_instruccion ::= accion:ac objetivo:ob parametros:param {: RESULT = ac.toString() + ob.toString() + param.toString(); :};
+sCL_instruccion ::= accion:ac objetivo_scl:ob parametros:param {: RESULT = ac.toString() + ob.toString() + param.toString(); :};
+
+objetivo_scl ::= SITIO_SCL:ob                {: RESULT = ob; :}
+               | PAGINA_SCL:ob               {: RESULT = ob; :}
+               | error:er                    {: report_error("Se esperaba \"SITIO\" o \"PAGINA\"", er); RESULT = ""; :};
 
 accion ::= CREAR:crud                        {: RESULT = crud; :}
          | AGREGAR:crud                      {: RESULT = crud; :}
@@ -89,7 +102,7 @@ codigo ::= SUCCESS:cod                       {: RESULT = cod; :}
 
 
 //BODY HTML
-body_html ::= MENOR_QUE:iz MAIN:ma MAYOR_QUE:de contenido:cont MENOR_QUE:izq DIVISION:dia MAIN:main MAYOR_QUE:der {:  RESULT = iz.toString() + ma.toString() + de.toString() + cont.toString() + izq.toString() + dia.toString() + main.toString() + der.toString(); :};
+body_html ::= MENOR_QUE:iz MAIN:ma MAYOR_QUE:de contenido:cont MENOR_QUE:izq DIVISION:dia MAIN:main MAYOR_QUE:der {:  System.out.println(cont.toString()); RESULT = iz.toString() + ma.toString() + de.toString() + cont.toString() + izq.toString() + dia.toString() + main.toString() + der.toString(); :};
 
 contenido ::= header:hed                    {: RESULT = hed; :}
             | parrafos:parr                 {: RESULT = parr; :}
