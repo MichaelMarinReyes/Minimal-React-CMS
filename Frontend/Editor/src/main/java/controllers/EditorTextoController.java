@@ -15,6 +15,8 @@ public class EditorTextoController {
     @FXML
     private TextArea textArea;
     @FXML
+    private Label mostrarReporteLabel;
+    @FXML
     private Label columnaLabel;
     @FXML
     private ListView<String> numeroLinea;
@@ -84,19 +86,21 @@ public class EditorTextoController {
     public void obtenerTexto() {
         texto = textArea.getText();  // Obtener el texto de la TextArea
         if (texto.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No se ha ingresado texto");
+            mostrarReporteLabel.setStyle("-fx-text-fill: #ff0000; -fx-font-weight: bold;");
+            mostrarReporteLabel.setText("No se ha ingresado texto");
         } else {
-            System.out.println("TEXTO DEL EDITOR: " + texto);
             new Thread(() -> {
                 Cliente cliente = null;
                 try {
                     cliente = Cliente.getInstancia();
-                    System.out.println(cliente.post(texto));
+                    Cliente finalCliente = cliente;
+                    Platform.runLater(() -> {
+                        mostrarReporteLabel.setText(finalCliente.post(texto));
+                    });
                 } catch (IOException e) {
                     System.err.println("Error al enviar texto: " + e.getMessage());
                 }
             }).start();
         }
     }
-
 }

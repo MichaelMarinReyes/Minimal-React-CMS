@@ -25,6 +25,12 @@ public class VentanaPrincipalController {
     @FXML
     private MenuItem webViewMenuItem;
     @FXML
+    private MenuItem reporteAstMenuItem;
+    @FXML
+    private MenuItem reporteDomMenuItem;
+    @FXML
+    private MenuItem reporteErrores;
+    @FXML
     private HBox chooser = new HBox();
     @FXML
     private MenuBar menuBar;
@@ -34,6 +40,10 @@ public class VentanaPrincipalController {
         abrirEditorMenuItem.setOnAction(event -> cargarVista(RutaVista.EDITOR_TEXTO.getPath()));
         abrirChooserMenuItem.setOnAction(event -> abrirChooser());
         webViewMenuItem.setOnAction(event -> cargarVista(RutaVista.WEB_VIEW.getPath()));
+        reporteAstMenuItem.setOnAction(event -> cargarVista(RutaVista.REPORTE_AST.getPath()));
+        reporteDomMenuItem.setOnAction(event -> cargarVista(RutaVista.REPORTE_DOM.getPath()));
+        reporteErrores.setOnAction(event -> cargarVista(RutaVista.REPORTE_ERROR.getPath()));
+
 
         //REDIMENSIONAMIENTO DE CONTENEDOR
         contenedorPrincipal.widthProperty().addListener((observable, oldValue, newValue) -> {

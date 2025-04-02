@@ -19,20 +19,25 @@ public class Servidor extends Conexion {
             System.out.println("Cliente conectado: " + socket.getInetAddress());
 
             enviarAlCliente = new DataOutputStream(socket.getOutputStream());
-            enviarAlCliente.writeUTF("Petición recibida: " + socket.getInetAddress());
+            System.out.println("Petición recibida: " + socket.getInetAddress());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
             while (true) {
                 mensajeDelCliente = entrada.readUTF();
                 analizar = new Analizar(mensajeDelCliente);
-                //enviarAlCliente.writeUTF(analizar.analizarAntlr4());
                 System.out.println("Cadena que se va a analizar: " + mensajeDelCliente);
-                enviarAlCliente.writeUTF(analizar.analizar());
+                enviarAlCliente.writeUTF(analizar.analizarAntlr4());
+                //enviarAlCliente.writeUTF(analizar.analizar());
                 enviarAlCliente.writeUTF("mensaje recibido");
             }
             /*System.out.println("Fin servidor");
             serverSocket.close();*/
         } catch (Exception e) {
             System.out.println("Error de conexión: " + e.getMessage());
+            try {
+                enviarAlCliente.writeUTF(e.getMessage());
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 }

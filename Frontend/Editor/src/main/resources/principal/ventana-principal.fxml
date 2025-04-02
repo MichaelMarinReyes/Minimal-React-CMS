@@ -26,8 +26,11 @@
                 </Menu>
 
                 <Menu id="reportes" mnemonicParsing="false" text="Reportes">
-
-                </Menu>
+            <items>
+               <MenuItem fx:id="reporteAstMenuItem" mnemonicParsing="false" text="Reporte AST" />
+               <MenuItem fx:id="reporteDomMenuItem" mnemonicParsing="false" text="Reporte de DOM" />
+               <MenuItem fx:id="reporteErrores" mnemonicParsing="false" text="Reporte Errores" />
+            </items></Menu>
             </menus>
         </MenuBar>
 

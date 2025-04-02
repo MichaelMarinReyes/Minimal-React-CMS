@@ -40,8 +40,8 @@ public class Analizar {
             return parser.getTexto();
         } catch (Exception e) {
             System.err.println("Error al parsear: " + e.getMessage());
+            return e.getMessage();
         }
-        return "";
     }
 
     public String analizarAntlr4() {
@@ -52,7 +52,7 @@ public class Analizar {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
             AnalizadorParser parser = new AnalizadorParser(tokens);
-            ParseTree tree = parser.request();
+            ParseTree tree = parser.inicial();
 
             ParseTreeWalker walker = new ParseTreeWalker();
             AnalizadorListener listener = new AnalizadorBaseListener();
