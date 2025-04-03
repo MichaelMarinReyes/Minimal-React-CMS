@@ -3,6 +3,7 @@ grammar Analizador;
 //Gramática
 inicial         : request
                 | response
+                | toml
                 ;
 
 request         : metodos objetivo_shttp sCL_instruccion body_html;
@@ -76,9 +77,19 @@ calculadora : '-' calculadora
             | calculadora ('+' | '-') calculadora
             | NUMERO;
 
-//Lexer
+toml : etiqueta_toml atributo_toml (toml)*;
 
-ESPACIOS: [ \t\n\r]+ -> skip;
+etiqueta_toml : '[' ID ']'
+              | '[' ID (PUNTO ID)+ ']'
+              ;
+
+atributo_toml : NOMBRE_TOML '=' CADENA
+              | PATH '=' PATH_TOML
+              | NOMBRE_TOML '=' CADENA PATH '=' PATH_TOML
+              ;
+
+//Lexer
+WS: [ \t\n\r]+ -> skip;
 GET: 'GET';
 POST: 'POST';
 PATCH: 'PATCH';
@@ -94,7 +105,7 @@ CREAR: 'crear';
 AGREGAR: 'agregar';
 ELIMINAR: 'eliminar';
 MODIFICAR: 'modificar';
-NOMBRE: 'nombre';
+NOMBRE_TOML: 'nombre';
 PATH: 'path';
 TRUE: 'true';
 FALSE: 'false';
@@ -146,11 +157,10 @@ PUNTO_COMA: ';';
 DIGITO: [0-9];
 ID: [a-zA-Z0-9]+;
 NUMERO: [0-9]+;
-CADENA: '"' [a-zA-Z0-9]+ '"';
+CADENA: '"' [a-zA-Z0-9 ]+ '"';
 CARACTER: '\'' [a-zA-Z] '\'';
-PATH_TOML: '"' [a-zA-Z0-9_/]+ '.mtsx' '"';
-//PARRAFO: [a-zA-Z0-9 ]+ ('\n' [a-zA-Z0-9 ]+)?;
+PATH_TOML: '"' [a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx' '"';
 
-COMENTARIO_TOML: '#' CADENA;
+COMENTARIO_TOML: '#'~[\n]*;
 COMENTARIO_LINEA: '//' ~[\n]* -> skip;
 COMENTARIO_BLOQUE: '/*' .*? '*/' -> skip;

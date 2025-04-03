@@ -33,11 +33,6 @@ public class Servidor extends Conexion {
             serverSocket.close();*/
         } catch (Exception e) {
             System.out.println("Error de conexión: " + e.getMessage());
-            try {
-                enviarAlCliente.writeUTF(e.getMessage());
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
         }
     }
 }
