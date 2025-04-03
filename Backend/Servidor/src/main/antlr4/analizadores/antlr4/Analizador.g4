@@ -1,19 +1,19 @@
 grammar Analizador;
 
 //Gramática
-inicial         : request
-                | response
-                | toml
-                | mini_react
-                ;
+inicial : request
+        | response
+        | toml
+        | mini_react
+        ;
 
-request         : metodos objetivo_shttp sCL_instruccion body_html;
+request : metodos objetivo_shttp sCL_instruccion body_html;
 
-metodos         : GET
-                | POST
-                | PATCH
-                | DELETE
-                ;
+metodos : GET
+       | POST
+       | PATCH
+       | DELETE
+       ;
 
 objetivo_shttp : SITIO_SHTTP
                | PAGINA_SHTTP

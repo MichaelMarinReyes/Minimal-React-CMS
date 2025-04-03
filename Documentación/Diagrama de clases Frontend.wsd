@@ -1,3 +1,116 @@
 @startuml Editor
+package conexion {
+    class Cliente {
+        - instancia: Cliente
+        - Cliente()
+        + getInstancia(): Cliente
+        + enviarSolicitud(metodo: String, mensaje: String): String
+        + get(mensaje: String): String
+        + post(mensaje: String): String
+        + patch(mensaje: String): String
+        + delete(mensaje: String): String
+        + cerrarConexion(): void
+    }
 
+    class Conexion {
+        - PUERTO = 8080: const int
+        - HOST = "localhost": const String
+        # serverSocket: ServerSocket
+        # socket: Socket
+        # mensajeDelServer: DataInputStream
+        # enviarAlSErver: DataOutputStream
+        + Conexion(tipo: String)
+    }
+}
+
+package controllers {
+    class EditorTextoController {
+        - textArea: TextArea
+        - mostrarReporteLabel: Label
+        - columnaLabel: Label
+        - numeroLinea: ListView<String>
+        - texto: String
+        + inicialize(): void
+        + actualizarNumeroColumna(event: KeyEvent): void
+        + actualizarNumeroLinea(): void
+        + sicronizarScroll(): void
+        + ocultarScrollBar(): void
+        + getVerticalScrollBar: ScrollBar
+        + obtenerTexto(): void
+    }
+
+    class ReporteAstController {
+
+    }
+
+    class ReporteDomController {
+
+    }
+
+    class ReporteErrorController {
+
+    }
+
+    class VentanaPrincipalController {
+        - contenedorPrincipal: Borderpane
+        - abrirEditorMenuItem: MenuItem
+        - abrirChooserMenuItem: MenuItem
+        - webViewmenuItem: MenuItem
+        - reporteAstMenuItem: MenuItem
+        - reporteDomMenuItem: MenuItem
+        - reporteErrores: MenuItem
+        + inicialize(): void
+        + cargarVista(path: String): void
+        + abrirChooser(): void
+    }
+
+    class VisorHtmlController {
+        - inicioHtml: String
+        - webView: WebView
+        + inicialize(): void
+    }
+}
+
+package principal {
+    class Main {
+        + start(stage: Stage): void
+        + stop(): void
+        + main(args: String[]): void
+    }
+}
+
+package utils {
+    enum RutaVista {
+        VENTANA("/principal/ventana-principal.fxml"),
+        EDITOR_TEXTO("/principal/editor-texto.fxml"),
+        PESTAÑAS_EDITOR("/principal/pestañas-editor.fxml"),
+        WEB_VIEW("/principal/visor-html.fxml"),
+        REPORTE_AST("/principal/reporte-ast.fxml"),
+        REPORTE_DOM("/principal/reporte-dom.fxml"),
+        REPORTE_ERROR("/principal/reporte-error.fxml");
+        - path: final String
+        + RutaVista(String path)
+        + getPath(): String
+    }
+}
+
+Conexion *-- ServerSocket
+Conexion *-- Socket
+Conexion *-- DataInputStream
+Conexion *-- DataOutputStream
+Cliente <|-- Conexion
+EditorTextoController *-- TextArea
+EditorTextoController *-- Label
+EditorTextoController *-- ListView
+VentanaPrincipalController *-up- Borderpane
+VentanaPrincipalController *-- MenuItem
+VentanaPrincipalController *-- MenuBar
+VentanaPrincipalController --> RutaVista
+VentanaPrincipalController *-- ReporteAstController
+VentanaPrincipalController *-- ReporteDomController
+VentanaPrincipalController *-- ReporteErrorController
+VentanaPrincipalController *-- Cliente
+VisorHtmlController *-- WebView
+Main <|-up- Application
+Main ..> VentanaPrincipalController
 @enduml

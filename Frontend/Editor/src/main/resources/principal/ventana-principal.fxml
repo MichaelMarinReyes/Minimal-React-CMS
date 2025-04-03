@@ -34,5 +34,5 @@
             </menus>
         </MenuBar>
 
-        <BorderPane fx:id="contenedorPrincipal" style="-fx-background-color: #086787;" VBox.vgrow="ALWAYS" />
+        <BorderPane fx:id="contenedorPrincipal" style="-fx-background-color: #71bad1;" VBox.vgrow="ALWAYS" />
 </VBox>

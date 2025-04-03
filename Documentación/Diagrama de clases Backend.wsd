@@ -1,0 +1,202 @@
+@startuml Servidor
+package java {
+    package analizadores {
+        package antlr4 {
+            class AnalizadorBaseListener {
+
+            }
+
+            class AnalizadorLexer {
+
+            }
+
+            interface AnalizadorListener {
+
+            }
+
+            class AnalizadorParser {
+
+            }
+
+            class ErrorLexicoAntlr {
+                + syntaxError(): void
+            }
+
+            class ErrorSintacticoAntlr {
+                + syntaxError(): void
+            }
+
+        }
+
+        class ErrorLexico {
+            - lexema: String
+            - linea: int
+            - columna: int
+            - tipo: String
+            - descripcion: String
+            + ErrorLexico(lexema: String, linea: int, columna: int, tipo: String, descripcion: String)
+            + getLexema(): String
+            + getLinea(): int
+            + getColumna(): int
+            + getTipo(): String
+            + getDescripcion(): String
+            + setLexema(lexema: String): void
+            + setLinea(linea: int): void
+            + setColumna(columna: int): int
+            + setDescripcion(descripcion: String): void
+        }
+
+        class ErrorSintactico {
+            - lexema: String
+            - linea: int
+            - columna: int
+            - tipo: String
+            - descripcion: String
+            + ErrorSintactico(lexema: String, linea: int, columna: int, tipo: String, descripcion: String)
+            + getLexema(): String
+            + getLinea(): int
+            + getColumna(): int
+            + getTipo(): String
+            + getDescripcion(): String
+            + setLexema(lexema: String): void
+            + setLinea(linea: int): void
+            + setColumna(columna: int): int
+            + setDescripcion(descripcion: String): void
+        }
+
+        class Token {
+            - lexema: String
+            - linea: int
+            - columna: int
+            - tipo: String
+            - descripcion: String
+            + Token(lexema: String, linea: int, columna: int, tipo: String, descripcion: String)
+            + getLexema(): String
+            + getLinea(): int
+            + getColumna(): int
+            + getTipo(): String
+            + getDescripcion(): String
+            + setLexema(lexema: String): void
+            + setLinea(linea: int): void
+            + setColumna(columna: int): int
+            + setDescripcion(descripcion: String): void
+        }
+
+        class Parser {
+
+        }
+
+        interface ParserSym {
+            + public static final int NUMERO
+            + public static final int FUNCTIO
+            + public static final int CONST
+            + public static final int INPUT
+            + public static final int RESTA
+            + public static final int DOS_PUNTOS
+            + public static final int ONCLICK
+            + public static final int PAREN_CIERRA
+            + public static final int AND
+            + public static final int IGUAL
+            + public static final int CARACTER
+            + public static final int OR
+            + public static final int CORCHETE_CIERRA
+            + public static final int SUMA
+            + public static final int PARRAFO_ABRIR
+            + public static final int MAIN
+            + public static final int PARRAFO_CERRAR
+            + public static final int ID
+            + public static final int PUNTO_COMA
+            + public static final int EOF
+            + public static final int RETURN
+            + public static final int TRUE
+            + public static final int COMILLAS
+            + public static final int error
+            + public static final int DIGITO
+            + public static final int CADENA
+            + public static final int NEGACION
+            + public static final int MAYOR_QUE
+            + public static final int NUMBER
+            + public static final int VOID
+            + public static final int LLAVE_ABRE
+            + public static final int POTENCIA
+            + public static final int CORCHETE_ABRE
+            + public static final int FLECHA
+            + public static final int PAREN_ABRE
+            + public static final int PUNTO
+            + public static final int MAYOR_IGUAL
+            + public static final int STRING
+            + public static final int MENOR_QUE
+            + public static final int VALUE
+            + public static final int LLAVE_CIERRA
+            + public static final int MENOR_IGUAL
+            + public static final int FALSE
+            + public static final int DIVISION
+            + public static final int H6
+            + public static final int BUTTON
+            + public static final int H5
+            + public static final int PATH_TOML
+            + public static final int H4
+            + public static final int VAR
+            + public static final int H3
+            + public static final int H2
+            + public static final int H1
+            + public static final int MULTIPLICACION
+        }
+
+        class Lexer {
+
+        }
+    }
+
+    package conexion {
+        class Conexion {
+            - PUERTO = 8080: const int
+            - HOST = "localhost": const String
+            # mensajeDelCliente: String
+            # serverSocket: ServerSocket
+            # socket: Socket
+            # enviarAlCliente: DataOutputStream
+            + Conexion (String tipo)
+        }
+
+        class Servidor {
+            - analizar: Analizar
+            + Servidor()
+            + iniciarServer(): void
+        }
+    }
+
+    package principal {
+        class Analizar {
+            - texto: String
+            + Analizar(texto: String)
+            + analizar(): void
+            + analizarAntlr(): void
+        }
+
+        class Main {
+            + main(args: String[]): void
+        }
+    }
+
+    AnalizadorBaseListener <|.. AnalizadorListener
+    AnalizadorLexer <|-- Lexer
+    AnalizadorListener <|-- ParserTreeListener
+    AnalizadorParser <|-- Parser
+    AnalizadorLexer ..> ErrorLexicoAntlr
+    AnalizadorParser ..> ErrorSintacticoAntlr
+    Analizar ..> ErrorLexico
+    Analizar ..> ErrorSintactico
+    Lexer ..> Token
+    Parser ..> Token
+    Parser ..> ParserSym
+    Servidor --> Analizar
+    Analizar ..> Lexer
+    Analizar ..> Parser
+    Servidor <|-- Conexion
+    Main <-- Servidor
+    Conexion *-- ServerSocket
+    Conexion *-- Socket
+}
+
+@enduml
