@@ -6,6 +6,7 @@ import java.util.ArrayList;
 class Parser;
 parser code {:
     private String texto = "";
+    public static ArrayList<ErrorSintactico> erroresSintactico = new ArrayList<>();
 
     public String getTexto() {
         return texto;
@@ -32,15 +33,15 @@ parser code {:
     }
 :}
 
-terminal GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO_SHTTP, PAGINA_SHTTP, SITIO_SCL, PAGINA_SCL, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE_TOML, PATH, TRUE, FALSE;
+//terminal GET, POST, PATCH, DELETE, SUCCESS, NOT_FOUND, INTERNAL_SERVER_ERROR, SITIO_SHTTP, PAGINA_SHTTP, SITIO_SCL, PAGINA_SCL, CREAR, AGREGAR, ELIMINAR, MODIFICAR, NOMBRE_TOML, PATH, TRUE, FALSE;
 terminal VOID, MAIN, CONST, VAR, STRING, NUMBER, RETURN, FUNCTION, H1, H2, H3,H4, H5, H6, PARRAFO_ABRIR, PARRAFO_CERRAR, INPUT, VALUE, BUTTON, ONCLICK, CORCHETE_ABRE, CORCHETE_CIERRA, LLAVE_ABRE, LLAVE_CIERRA;
 terminal PAREN_ABRE, PAREN_CIERRA, COMILLAS, SUMA, RESTA, MULTIPLICACION, DIVISION, POTENCIA, IGUAL, MENOR_QUE, MAYOR_QUE, MAYOR_IGUAL, MENOR_IGUAL, FLECHA, OR, AND, NEGACION, PUNTO, PUNTO_COMA, DIGITO, ID, NUMERO;
-terminal CADENA, CARACTER, PATH_TOML;
+terminal CADENA, CARACTER, PATH_TOML, DOS_PUNTOS, TRUE, FALSE;
 
-non terminal inicial, request, response, toml, metodos, objetivo_shttp, scl_instruccion, accion, objetivo_scl, parametros, codigo, body_html, contenido, header, parrafos, inputs, buttons, texto;
-non terminal calculadora, etiqueta_toml, atributo_toml, id_etiqueta;
+non terminal inicial, body_html, contenido, header, parrafos, inputs, buttons, texto;
+non terminal calculadora, etiqueta_toml, atributo_toml, id_etiqueta, mini_react, cuerpo_react, declaracion_variables, funciones, return_cuerpo, tipo_variable, asignacion_variable, cuerpo_funcion;
 
-precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
+//precedence left CREAR, AGREGAR, ELIMINAR, MODIFICAR;
 precedence left SUMA, RESTA;
 precedence left MULTIPLICACION, DIVISION;
 precedence left POTENCIA;
@@ -52,48 +53,25 @@ precedence left LLAVE_ABRE;
 
 start with inicial;
 
-inicial ::= request
-          | response
-          | toml;
+inicial ::= mini_react:mini {: texto = mini.toString(); :};
 
-request ::= metodos:met objetivo_shttp:ob scl_instruccion:scl body_html:html {: RESULT = met.toString() + ob.toString() + scl.toString() + html.toString(); :};
+mini_react ::= CONST:cons ID:id IGUAL:ig FLECHA:flecha LLAVE_ABRE:la cuerpo_react:cr LLAVE_CIERRA:lc {: RESULT = cons.toString() + id.toString() + ig.toString() + flecha.toString() + la.toString() + cr.toString() + lc.toString(); :};
 
-metodos ::= GET:get                                                         {: RESULT = get.toString(); :}
-          | POST:post                                                       {: RESULT = post.toString(); :}
-          | PATCH:patch                                                     {: RESULT = patch.toString(); :}
-          | DELETE:delete                                                   {: RESULT = delete.toString(); :};
+cuerpo_react ::= declaracion_variables:dv funciones:fn return_cuerpo:rc {: RESULT = dv.toString() + fn.toString() + rc.toString(); :};
 
-objetivo_shttp ::= SITIO_SHTTP:sit                                          {: RESULT = sit.toString(); :}
-                 | PAGINA_SHTTP:pag                                         {: RESULT = pag.toString(); :};
+declaracion_variables ::= VAR:var ID:id DOS_PUNTOS:dp tipo_variable:tv IGUAL:ig asignacion_variable:av {: RESULT = var.toString() + id.toString() + dp.toString() + tv.toString() + ig.toString() + av.toString(); :};
 
-scl_instruccion ::= accion:ac objetivo_scl:ob parametros:param              {: RESULT = ac.toString() + ob.toString() + param.toString(); :};
+funciones ::= FUNCTION:fn ID:id PAREN_ABRE:ab PAREN_CIERRA:ci DOS_PUNTOS:puntos tipo_variable:var LLAVE_ABRE:la cuerpo_funcion:cf LLAVE_CIERRA:lc {: RESULT = fn.toString() + id.toString() + ab.toString() + ci.toString() + puntos.toString() + var.toString() + la.toString() + cf.toString() + lc.toString(); :};
 
-accion ::= CREAR:crear                                                      {: RESULT = crear.toString(); :}
-         | AGREGAR:agregar                                                  {: RESULT = agregar.toString(); :}
-         | ELIMINAR:eliminar                                                {: RESULT = eliminar.toString(); :}
-         | MODIFICAR:modificar                                              {: RESULT = modificar.toString(); :};
-
-objetivo_scl ::= SITIO_SCL:sit                                              {: RESULT = sit.toString(); :}
-               | PAGINA_SCL:pag                                             {: RESULT = pag.toString(); :};
-
-parametros ::= ID:id                                                        {: RESULT = id.toString(); :}
-             | ID:id parametros:par                                         {: RESULT = id.toString() + par.toString(); :};
-
-response ::= codigo:cod body_html:bod                                       {: RESULT = cod.toString() + bod.toString(); :};
-
-codigo ::= SUCCESS:cod                       {: RESULT = cod; :}
-         | NOT_FOUND:cod                     {: RESULT = cod; :}
-         | INTERNAL_SERVER_ERROR:cod         {: RESULT = cod; :}
-         | error:err                         {: report_error("Se esperaba alguno de los siguientes códigos: \"succes\", \"not_found\", \"internal_server_error\"", err); RESULT  = ""; :};
-
+return_cuerpo ::= RETURN:re PAREN_ABRE:ab body_html:body PAREN_CIERRA:ci PUNTO_COMA:pc {: RESULT = re.toString() + ab.toString() + body.toString() + ci.toString() + pc.toString(); :};
 
 //BODY HTML
 body_html ::= MENOR_QUE:iz MAIN:ma MAYOR_QUE:de contenido:cont MENOR_QUE:izq DIVISION:dia MAIN:main MAYOR_QUE:der {: RESULT = iz.toString() + ma.toString() + de.toString() + cont.toString() + izq.toString() + dia.toString() + main.toString() + der.toString(); :};
 
 contenido ::= header:hed                    {: RESULT = hed; :}
             | parrafos:parr                 {: RESULT = parr; :}
-            | inputs:inputs {: RESULT = inputs; :}
-            | buttons:btn {: RESULT = btn; :};
+            | inputs:inputs                 {: RESULT = inputs; :}
+            | buttons:btn                   {: RESULT = btn; :};
 
 header ::= MENOR_QUE:men H1:h texto:text MENOR_QUE:iz DIVISION:di H1:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
          | MENOR_QUE:men H2:h texto:text MENOR_QUE:iz DIVISION:di H2:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :}
@@ -103,9 +81,9 @@ header ::= MENOR_QUE:men H1:h texto:text MENOR_QUE:iz DIVISION:di H1:head {: RES
          | MENOR_QUE:men H6:h texto:text MENOR_QUE:iz DIVISION:di H6:head {: RESULT = men.toString() + h.toString() + text.toString() + iz.toString() + di.toString() + head.toString(); :};
 
 parrafos ::= PARRAFO_ABRIR:p texto:txt PARRAFO_CERRAR:par     {: RESULT = p.toString() + txt.toString() + par.toString(); :};
-
+//input no sirve
 inputs ::= INPUT:in VALUE:val IGUAL:ig LLAVE_ABRE:abre ID:id LLAVE_CIERRA:cierre DIVISION:di MAYOR_QUE:der {: RESULT = in.toString() + val.toString() + ig.toString() + abre.toString() + id.toString() + cierre.toString() + di.toString() + der.toString(); :};
-
+//no funciona
 buttons ::= MENOR_QUE:men BUTTON:btn ONCLICK:on IGUAL:ig LLAVE_ABRE:abre ID:id LLAVE_CIERRA:cierre MAYOR_QUE:may texto:txt MENOR_QUE:iz DIVISION:div BUTTON:but MAYOR_QUE:der
 {:RESULT = men.toString() + btn.toString() + on.toString() + ig.toString() + abre.toString() + id.toString() + cierre.toString() + may.toString() + txt.toString() + iz.toString() + div.toString() + but.toString() + der.toString(); :};
 
@@ -114,21 +92,6 @@ texto ::= ID:txt                                                  {: RESULT = tx
         | texto:txt LLAVE_ABRE ID:id LLAVE_CIERRA                 {: RESULT = txt.toString() + "{" + id.toString() + "}"; :}
         | texto:txt LLAVE_ABRE ID:id LLAVE_CIERRA texto:texto     {: RESULT = txt.toString() + "{" + id.toString() + "}" + texto.toString(); :};
 
-//LENGUAJE TOML
-toml ::= etiqueta_toml:eti atributo_toml:att                            {: RESULT = eti.toString() + " " + att.toString(); :};
-
-etiqueta_toml ::= CORCHETE_ABRE:ab ID:id CORCHETE_CIERRA:ci                 {: RESULT = ab.toString() + " " + id.toString() + " " + ci.toString(); :}
-                 | CORCHETE_ABRE:ab id_etiqueta:id CORCHETE_CIERRA:ci        {: RESULT = ab.toString() + " " + id.toString() + " " + ci.toString(); :};
-
-id_etiqueta ::= ID:id PUNTO:pt ID:ids                                   {: RESULT = id.toString() + pt.toString() + ids.toString(); :}
-              | ID:id PUNTO:pt id_etiqueta:ids                          {: RESULT = id.toString() + pt.toString() + ids.toString(); :};
-
-atributo_toml ::= NOMBRE_TOML:nombre IGUAL:igual CADENA:cadena                   {: RESULT = nombre.toString() + igual.toString() + cadena.toString(); :}
-                 | PATH:path IGUAL:igual PATH_TOML:id                         {: RESULT = path.toString() + " " + igual.toString() + " " + id.toString(); :};
-
-//MINIMAL REACT
-
-/*
 //CALCULADORA
 calculadora ::= RESTA calculadora:e1                                  {: RESULT = (-1 * ((Number)e1).doubleValue()); :}
               | calculadora:e1 SUMA:s calculadora:e2                  {: RESULT = ((Number)e1).doubleValue() + ((Number)e2).doubleValue(); :}
@@ -140,4 +103,4 @@ calculadora ::= RESTA calculadora:e1                                  {: RESULT 
                                                                         RESULT = ((Number)e1).doubleValue() / ((Number)e2).doubleValue(); :}
               | calculadora:e1 POTENCIA:s calculadora:e2               {: RESULT = Math.pow(((Number)e1).doubleValue(), ((Number)e2).doubleValue()); :}
               | PAREN_ABRE calculadora:e PAREN_CIERRA                  {: RESULT = ((Number)e).doubleValue(); :}
-              | NUMERO:n                                               {: RESULT = ((Number)n).doubleValue(); :};*/
+              | NUMERO:n                                               {: RESULT = ((Number)n).doubleValue(); :};

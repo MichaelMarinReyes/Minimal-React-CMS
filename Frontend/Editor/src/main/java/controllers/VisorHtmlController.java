@@ -6,6 +6,8 @@ import javafx.scene.web.WebView;
 
 public class VisorHtmlController {
 
+    private final String inicioHtml = "";
+
     @FXML
     private WebView webView;
 

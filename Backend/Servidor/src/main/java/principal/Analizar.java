@@ -1,11 +1,9 @@
 package principal;
 
+import analizadores.ErrorLexico;
 import analizadores.Lexer;
 import analizadores.Parser;
-import analizadores.antlr4.AnalizadorBaseListener;
-import analizadores.antlr4.AnalizadorLexer;
-import analizadores.antlr4.AnalizadorListener;
-import analizadores.antlr4.AnalizadorParser;
+import analizadores.antlr4.*;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -13,6 +11,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.StringReader;
+
+import static analizadores.Lexer.errores;
+import static analizadores.Parser.erroresSintactico;
 
 public class Analizar {
     private String texto;
@@ -46,13 +47,29 @@ public class Analizar {
 
     public String analizarAntlr4() {
         try {
+            errores.clear();
+            erroresSintactico.clear();
+
             CharStream entrada = CharStreams.fromString(texto);
 
             AnalizadorLexer lexer = new AnalizadorLexer(entrada);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
 
             AnalizadorParser parser = new AnalizadorParser(tokens);
+
+            lexer.removeErrorListeners();
+            lexer.addErrorListener(new ErrorLexicoAntlr());
+
+            parser.removeErrorListeners();
+            parser.addErrorListener(new ErrorSintacticoAntlr());
+
             ParseTree tree = parser.inicial();
+
+            if (!errores.isEmpty()) {
+                for (ErrorLexico error : errores) {
+                    System.out.println(error.getTipo());
+                }
+            }
 
             ParseTreeWalker walker = new ParseTreeWalker();
             AnalizadorListener listener = new AnalizadorBaseListener();

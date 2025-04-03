@@ -4,6 +4,7 @@ grammar Analizador;
 inicial         : request
                 | response
                 | toml
+                | mini_react
                 ;
 
 request         : metodos objetivo_shttp sCL_instruccion body_html;
@@ -41,6 +42,7 @@ codigo : SUCCESS
        | INTERNAL_SERVER_ERROR
        ;
 
+//HTML
 body_html : '<' MAIN '>' contenido '</' MAIN '>'
           | '<' MAIN '>' contenido (contenido)* '</' MAIN '>';
 
@@ -70,12 +72,6 @@ texto : ID
       | texto '{' ID '}' texto
       ;
 
-calculadora : '-' calculadora
-            | '(' calculadora ')'
-            | calculadora '^' calculadora
-            | calculadora ('*' | '/') calculadora
-            | calculadora ('+' | '-') calculadora
-            | NUMERO;
 
 toml : etiqueta_toml atributo_toml (toml)*;
 
@@ -87,6 +83,63 @@ atributo_toml : NOMBRE_TOML '=' CADENA
               | PATH '=' PATH_TOML
               | NOMBRE_TOML '=' CADENA PATH '=' PATH_TOML
               ;
+
+//mini react
+mini_react : CONST ID '=' '(' ')' FLECHA LLAVE_ABRE cuerpo_react return_react LLAVE_CIERRA
+           ;
+
+cuerpo_react :  VAR ID ':' tipo_variable '=' asignacion_variable ';'
+             | (VAR ID ':' tipo_variable '=' asignacion_variable ';')+
+             | (VAR ID ':' tipo_variable '=' asignacion_variable ';')+ funciones+
+             | funciones+
+             ;
+
+tipo_variable : NUMBER
+              | STRING
+              | CHAR
+              | BOOLEAN
+              ;
+
+asignacion_variable : asignacion_numero
+                    | CADENA
+                    | CARACTER
+                    | (TRUE | FALSE)
+                    ;
+
+asignacion_numero : NUMERO
+                  | calculadora
+                  ;
+
+funciones : FUNCTION ID '(' (parametros_fun)? ')' ':' VOID '{' bloque_codigo '}'
+          | FUNCTION ID '(' (parametros_fun)? ')' ':' tipo_variable '{' bloque_codigo  RETURN calculadora'}';
+
+parametros_fun : ID ':' (tipo_variable | VOID) (',' ID ':' (tipo_variable | VOID))+
+               | ;
+
+bloque_codigo : if
+              | for
+              ;
+
+if : IF '(' NUMERO ')' '{' '}' (ELSE IF '(' NUMERO ')' '{' '}')*
+   | IF '(' NUMERO ')' '{' '}' ELSE '{' '}'
+   ;
+
+for : FOR '(' asignacion_numero ';' condiciones ';' ('i++' | 'i--') ')' '{' bloque_codigo '}';
+
+condiciones : calculadora MAYOR_QUE calculadora
+            | calculadora MENOR_QUE calculadora
+            | calculadora MAYOR_IGUAL calculadora
+            | calculadora MENOR_IGUAL calculadora
+            ;
+
+return_react : RETURN '(' body_html ')' ';';
+
+calculadora : '-' calculadora
+            | '(' calculadora ')'
+            | calculadora '^' calculadora
+            | calculadora ('*' | '/') calculadora
+            | calculadora ('+' | '-') calculadora
+            | NUMERO;
 
 //Lexer
 WS: [ \t\n\r]+ -> skip;
@@ -115,8 +168,15 @@ CONST: 'const';
 VAR: 'var';
 STRING: 'string';
 NUMBER: 'number';
+BOOLEAN: 'boolean';
+CHAR: 'char';
 FUNCTION: 'function';
 RETURN: 'return';
+CONSOLE: 'console';
+LOG: 'log';
+IF: 'if';
+ELSE: 'else';
+FOR: 'for';
 
 H1: 'h1';
 H2: 'h2';

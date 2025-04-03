@@ -2,8 +2,10 @@ package analizadores;
 
 import java_cup.runtime.*;
 import analizadores.ErrorLexico;
-import analizadores.Token;import org.w3c.dom.ls.LSOutput;
-import javax.swing.text.html.parser.Parser;import java.util.ArrayList;
+import analizadores.Token;
+import org.w3c.dom.ls.LSOutput;
+import javax.swing.text.html.parser.Parser;
+import java.util.ArrayList;
 
 %%
 %public
@@ -29,7 +31,7 @@ PATH_TOML = \"([a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx')\"
 %}
 
 %%
-
+/*
 "GET"                                  { return new Symbol(ParserSym.GET, yyline+1, yycolumn+1, yytext()); }
 "POST"                                 { return new Symbol(ParserSym.POST, yyline+1, yycolumn+1, yytext()); }
 "PATCH"                                { return new Symbol(ParserSym.PATCH, yyline+1, yycolumn+1, yytext()); }
@@ -46,7 +48,7 @@ PATH_TOML = \"([a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx')\"
 "eliminar"                             { return new Symbol(ParserSym.ELIMINAR, yyline+1, yycolumn+1, yytext()); }
 "modificar"                            { return new Symbol(ParserSym.MODIFICAR, yyline+1, yycolumn+1, yytext()); }
 "nombre"                               { return new Symbol(ParserSym.NOMBRE_TOML, yyline+1, yycolumn+1, yytext()); }
-"path"                                 { return new Symbol(ParserSym.PATH, yyline+1, yycolumn+1, yytext()); }
+"path"                                 { return new Symbol(ParserSym.PATH, yyline+1, yycolumn+1, yytext()); }*/
 "true"                                 { return new Symbol(ParserSym.TRUE, yyline+1, yycolumn+1, yytext()); }
 "false"                                { return new Symbol(ParserSym.FALSE, yyline+1, yycolumn+1, yytext()); }
 "void"                                 { return new Symbol(ParserSym.VOID, yyline+1, yycolumn+1, yytext()); }
@@ -57,15 +59,15 @@ PATH_TOML = \"([a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx')\"
 "number"                               { return new Symbol(ParserSym.NUMBER, yyline+1, yycolumn+1, yytext()); }
 "return"                               { return new Symbol(ParserSym.RETURN, yyline+1, yycolumn+1, yytext()); }
 "function"                             { return new Symbol(ParserSym.FUNCTION, yyline+1, yycolumn+1, yytext()); }
-"h1"                                   { return new Symbol(ParserSym.H1, yyline+1, yycolumn+1, yytext()); }
-"h2"                                   { return new Symbol(ParserSym.H2, yyline+1, yycolumn+1, yytext()); }
-"h3"                                   { return new Symbol(ParserSym.H3, yyline+1, yycolumn+1, yytext()); }
-"h4"                                   { return new Symbol(ParserSym.H4, yyline+1, yycolumn+1, yytext()); }
-"h5"                                   { return new Symbol(ParserSym.H5, yyline+1, yycolumn+1, yytext()); }
-"h6"                                   { return new Symbol(ParserSym.H6, yyline+1, yycolumn+1, yytext()); }
+"h1>"                                  { return new Symbol(ParserSym.H1, yyline+1, yycolumn+1, yytext()); }
+"h2>"                                  { return new Symbol(ParserSym.H2, yyline+1, yycolumn+1, yytext()); }
+"h3>"                                  { return new Symbol(ParserSym.H3, yyline+1, yycolumn+1, yytext()); }
+"h4>"                                  { return new Symbol(ParserSym.H4, yyline+1, yycolumn+1, yytext()); }
+"h5>"                                  { return new Symbol(ParserSym.H5, yyline+1, yycolumn+1, yytext()); }
+"h6>"                                  { return new Symbol(ParserSym.H6, yyline+1, yycolumn+1, yytext()); }
 "<p>"                                  { return new Symbol(ParserSym.PARRAFO_ABRIR, yyline+1, yycolumn+1, yytext()); }
 "</p>"                                 { return new Symbol(ParserSym.PARRAFO_CERRAR, yyline+1, yycolumn+1, yytext()); }
-"input"                                { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
+"<input"                               { return new Symbol(ParserSym.INPUT, yyline+1, yycolumn+1, yytext()); }
 "value"                                { return new Symbol(ParserSym.VALUE, yyline+1, yycolumn+1, yytext()); }
 "button"                               { return new Symbol(ParserSym.BUTTON, yyline+1, yycolumn+1, yytext()); }
 "onClick"                              { return new Symbol(ParserSym.ONCLICK, yyline+1, yycolumn+1, yytext()); }
@@ -91,6 +93,7 @@ PATH_TOML = \"([a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx')\"
 "&&"                                   { return new Symbol(ParserSym.AND, yyline+1, yycolumn+1, yytext()); }
 "!"                                    { return new Symbol(ParserSym.NEGACION, yyline+1, yycolumn+1, yytext()); }
 "."                                    { return new Symbol(ParserSym.PUNTO, yyline+1, yycolumn+1, yytext()); }
+":"                                    { return new Symbol(ParserSym.DOS_PUNTOS, yyline+1, yycolumn+1, yytext()); }
 ";"                                    { return new Symbol(ParserSym.PUNTO_COMA, yyline+1, yycolumn+1, yytext()); }
 {DIGITO}                               { return new Symbol(ParserSym.DIGITO, yyline+1, yycolumn+1, yytext()); }
 {ID}                                   { return new Symbol(ParserSym.ID, yyline+1, yycolumn+1, yytext()); }
