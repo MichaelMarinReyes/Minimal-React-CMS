@@ -156,7 +156,7 @@ PUNTO_COMA: ';';
 
 DIGITO: [0-9];
 ID: [a-zA-Z0-9]+;
-NUMERO: [0-9]+;
+NUMERO: ([0-9]+ | [0-9]+[.][0-9]+);
 CADENA: '"' [a-zA-Z0-9 ]+ '"';
 CARACTER: '\'' [a-zA-Z] '\'';
 PATH_TOML: '"' [a-zA-Z0-9_]+([/][a-zA-Z0-9_]+)* '.mtsx' '"';

@@ -26,7 +26,7 @@ public class Servidor extends Conexion {
                 analizar = new Analizar(mensajeDelCliente);
                 System.out.println("Cadena que se va a analizar: " + mensajeDelCliente);
                 enviarAlCliente.writeUTF(analizar.analizarAntlr4());
-                //enviarAlCliente.writeUTF(analizar.analizar());
+                //enviarAlCliente.writeUTF(analizar.analizar()); no funciona con cup y flex
                 enviarAlCliente.writeUTF("mensaje recibido");
             }
             /*System.out.println("Fin servidor");
