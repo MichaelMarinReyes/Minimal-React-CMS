@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Servidor:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08e4c9bf-d279-498b-bb1a-3c6bd32c992a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Servidor_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/principal/ConvertirHtml.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/Editor/.idea/artifacts/Editor_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/antlr4/analizadores/antlr4/Analizador.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/antlr4/analizadores/antlr4/Analizador.g4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/conexion/Servidor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VentanaPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VentanaPrincipalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VisorHtmlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/controllers/VisorHtmlController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/java/principal/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/editor-texto.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-ast.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-ast.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-dom.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-dom.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-error.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/reporte-error.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/visor-html.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Frontend/Editor/src/main/resources/principal/visor-html.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,25 +55,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/michael/Documentos/2024/Segundo semestre/Organización de Lenguajes y Compiladores 1/Laboratorio/Práctica 1/Analizador&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/michael/Documentos/2024/Segundo semestre/Organización de Lenguajes y Compiladores 1/Laboratorio/Práctica 1/Analizador",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="analizadores" />
@@ -106,7 +124,7 @@
       <workItem from="1743367777629" duration="3061000" />
       <workItem from="1743612933542" duration="7022000" />
       <workItem from="1743620965546" duration="30001000" />
-      <workItem from="1743701446158" duration="9580000" />
+      <workItem from="1743701446158" duration="12690000" />
     </task>
     <servers />
   </component>

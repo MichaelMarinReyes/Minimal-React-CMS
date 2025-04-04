@@ -39,7 +39,7 @@ public class VentanaPrincipalController {
     public void initialize() {
         abrirEditorMenuItem.setOnAction(event -> cargarVista(RutaVista.EDITOR_TEXTO.getPath()));
         abrirChooserMenuItem.setOnAction(event -> abrirChooser());
-        webViewMenuItem.setOnAction(event -> cargarVista(RutaVista.WEB_VIEW.getPath()));
+        webViewMenuItem.setOnAction(event -> cargarHtml());
         reporteAstMenuItem.setOnAction(event -> cargarVista(RutaVista.REPORTE_AST.getPath()));
         reporteDomMenuItem.setOnAction(event -> cargarVista(RutaVista.REPORTE_DOM.getPath()));
         reporteErrores.setOnAction(event -> cargarVista(RutaVista.REPORTE_ERROR.getPath()));
@@ -78,5 +78,18 @@ public class VentanaPrincipalController {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Archivos MTSX", "*.mtsx"));
         File file = fileChooser.showOpenDialog(null);
 
+    }
+
+    private void cargarHtml() {
+        String html = "";
+        //leer toml
+
+
+        //convertir a html
+        VisorHtmlController controller = new VisorHtmlController();
+        controller.convertirHtml(html);
+
+        //cargar vista
+        cargarVista(RutaVista.WEB_VIEW.getPath());
     }
 }

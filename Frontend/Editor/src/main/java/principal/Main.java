@@ -32,6 +32,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(RutaVista.VENTANA.getPath()));
         Scene scene = new Scene(fxmlLoader.load(), tamañoPantalla.getWidth(), tamañoPantalla.getHeight());
         stage.setTitle("MINIMAL REACT CMS");
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

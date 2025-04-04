@@ -19,15 +19,14 @@ public class Servidor extends Conexion {
             System.out.println("Cliente conectado: " + socket.getInetAddress());
 
             enviarAlCliente = new DataOutputStream(socket.getOutputStream());
-            System.out.println("Petición recibida: " + socket.getInetAddress());
             DataInputStream entrada = new DataInputStream(socket.getInputStream());
             while (true) {
                 mensajeDelCliente = entrada.readUTF();
                 analizar = new Analizar(mensajeDelCliente);
-                System.out.println("Cadena que se va a analizar: " + mensajeDelCliente);
+                //System.out.println("Cadena que se va a analizar: " + mensajeDelCliente);
                 enviarAlCliente.writeUTF(analizar.analizarAntlr4());
                 //enviarAlCliente.writeUTF(analizar.analizar()); no funciona con cup y flex
-                enviarAlCliente.writeUTF("mensaje recibido");
+                //enviarAlCliente.writeUTF("mensaje recibido");
             }
             /*System.out.println("Fin servidor");
             serverSocket.close();*/
